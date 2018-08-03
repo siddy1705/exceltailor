@@ -7,13 +7,7 @@ A Simple Admin Pannel written in core PHP. It contains an implementation of gene
   - Bootstrap based HTML template.
   - Authentication and Authorization.
   - Pagination
-  - Filters
-
-### Live Demo :
-http://corephpadmin.000webhostapp.com/
-Credentials :  
-**username** : chetan
-**password** : chetan
+  - Filters 
 
 
 ### Libraries used : 
