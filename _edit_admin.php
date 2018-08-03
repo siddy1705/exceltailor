@@ -64,7 +64,7 @@ require_once 'includes/header.php';
     </div>
     
     <form class="well form-horizontal" action="" method="post"  id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/admin_users_form.php'; ?>
+        <?php include_once './forms/employee_form.php'; ?>
     </form>
 </div>
 

@@ -25,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+                <a class="navbar-brand" href="#"><span>Excel</span>Tailor</a>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <em class="fa fa-envelope"></em><span class="label label-danger">15</span>
@@ -88,24 +88,24 @@
                 <img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
             </div>
             <div class="profile-usertitle">
-                <div class="profile-usertitle-name"><?php echo $_SESSION['username']; ?></div>
-                <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+                <div class="profile-usertitle-name"><?php echo $_SESSION['full_name']; ?></div>
+                <!-- <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div> -->
             </div>
             <div class="clear"></div>
         </div>
         <div class="divider"></div>
-        <form role="search">
+        <!-- <form role="search">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search">
             </div>
-        </form>
+        </form> -->
         <ul class="nav menu">
             <li <?php echo (CURRENT_PAGE =="index.php") ? 'class="active"' : '' ; ?>><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-            <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
+            <li <?php echo (CURRENT_PAGE =="customers.php" || CURRENT_PAGE =="add_customer.php") ? 'class="parent active"' : 'class=" parent"' ; ?>><a data-toggle="collapse" href="#sub-item-1">
                 <em class="fa fa-navicon">&nbsp;</em> Customers <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
                 </a>
                 <ul class="children collapse" id="sub-item-1">
-                    <li><a class="" href="customers.php">
+                    <li ><a class="" href="customers.php">
                         <span class="fa fa-arrow-right">&nbsp;</span> View All
                     </a></li>
                     <li><a class="" href="add_customer.php">
@@ -113,17 +113,21 @@
                     </a></li>
                 </ul>
             </li>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
+            <li <?php echo (CURRENT_PAGE =="employees.php") ? 'class="active"' : '' ; ?>><a href="employees.php"><em class="fa fa-dashboard">&nbsp;</em> Employees</a></li>
+            <?php endif; ?>
             <li><a href="logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
         </ul>
     </div><!--/.sidebar-->
         
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-        <div class="row">
+        <!-- <div class="row">
             <ol class="breadcrumb">
                 <li><a href="#">
                     <em class="fa fa-home"></em>
                 </a></li>
-                <li class="active"><?php echo CURRENT_PAGE; ?></li>
+                <li class="active"><?php //echo CURRENT_PAGE; ?></li>
             </ol>
-        </div><!--/.row-->
+        </div> -->
+        <!--/.row-->
         <?php endif; ?>

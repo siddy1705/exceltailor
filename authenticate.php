@@ -4,26 +4,26 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 {
     $username = filter_input(INPUT_POST, 'username');
-    $passwd = filter_input(INPUT_POST, 'password');
+    $password = filter_input(INPUT_POST, 'password');
     $remember = filter_input(INPUT_POST, 'remember');
-    $passwd=  md5($passwd);
+    $password=  md5($password);
    	
     //Get DB instance. function is defined in config.php
     $db = getDbInstance();
 
     $db->where ("user_name", $username);
-    $db->where ("passwd", $passwd);
-    $row = $db->get('admin_accounts');
+    $db->where ("password", $password);
+    $row = $db->get('et_users');
 
     if ($db->count >= 1) {
      
         $_SESSION['user_logged_in'] = TRUE;
-        $_SESSION['admin_type'] = $row[0]['admin_type'];
-        $_SESSION['username'] = $username;
+        $_SESSION['user_type'] = $row[0]['type'];
+        $_SESSION['full_name'] = $row[0]['full_name'];;
        	if($remember)
        	{
        		setcookie('username',$username , time() + (86400 * 90), "/");
-       		setcookie('password',$passwd , time() + (86400 * 90), "/");
+       		setcookie('password',$password , time() + (86400 * 90), "/");
        	}
         header('Location:index.php');
         exit;

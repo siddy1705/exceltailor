@@ -11,16 +11,16 @@ if(isset($_COOKIE['username']) && isset($_COOKIE['password']))
 {
 	//Get user credentials from cookies.
 	$username = filter_var($_COOKIE['username']);
-	$passwd = filter_var($_COOKIE['password']);
+	$password = filter_var($_COOKIE['password']);
 	$db->where ("user_name", $username);
-	$db->where ("passwd", $passwd);
-    $row = $db->get('admin_accounts');
+	$db->where ("password", $password);
+    $row = $db->get('et_users');
 
     if ($db->count >= 1) 
     {
     	//Allow user to login.
         $_SESSION['user_logged_in'] = TRUE;
-        $_SESSION['admin_type'] = $row[0]['admin_type'];
+        $_SESSION['user_type'] = $row[0]['type'];
         header('Location:index.php');
         exit;
     }
