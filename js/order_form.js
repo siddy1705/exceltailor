@@ -49,22 +49,24 @@ $(document).ready(function () {
       $.ajax({
         type: "POST",
         url: "get_customers_ajax.php",
-        dataType: "html",  
+        dataType: "json",  
         data: {
           phone:  $("#phone-number").val(),
         },
         success: function(result) {
-          //console.log(result);
-          if(result != null && result == 'not found') {
-            $('#customer-fetch').empty();
-            $('#customer-fetch').append(result);
-          }
-          else if(result == 'not found') {
-            
+          if(result != null) {
+            console.log(result.id);
+            //$('#cust_info > td').remove();
+            $('#customer-fetch').show();
+            $('#cust_id').val(result.id);
+            $('#name').html(result.f_name + " " + result.l_name);
+            $('#gender').html(result.gender);
+            $('#phone').html(result.phone);
+
           }
         },
         error: function(result, error) {
-          //console.log(error);
+          console.log(error);
           $('#add_new_customer').show();
         }
       });
@@ -72,5 +74,38 @@ $(document).ready(function () {
   });
 
 
+  // Get Measurment Details
+  $("#order-form-step2").click(function(e) {
+    var custId = $('#cust_id').val();
+    console.log(custId)
+      $.ajax({
+        type: "POST",
+        url: "get_measurments_ajax.php",
+        dataType: "json",  
+        data: {
+          cust_id: custId,
+        },
+        success: function(results) {
+          if(results != null) {
+            //var res = JSON.parse(result)
+            console.log(results);
+            results.forEach(result => {
+              $('#measurment-table').append('<tr class="measurment-info-'+ result.measurment_id +'">'
+              + '<td><input type="radio" name="measurment-select" value="'+ result.measurment_id +'"></td>'
+              + '<td>'+ result.name +'</td>'
+              + '<td>'+ result.ub_a +'</td>'
+              + '<td>'+ result.ub_b +'</td>'
+              + '<td>'+ result.lb_a +'</td>'
+              + '<td>'+ result.lb_b +'</td>'
+              + '</tr>');
+            });
+          }
+        },
+        error: function(result, error) {
+          console.log(error);
+          $('#add_new_customer').show();
+        }
+      });
+  });
 
 });

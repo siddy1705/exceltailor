@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
+-- version 4.5.0.2
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2018 at 03:41 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 5.6.34
+-- Generation Time: Aug 05, 2018 at 07:51 PM
+-- Server version: 10.0.17-MariaDB
+-- PHP Version: 5.5.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -90,7 +88,33 @@ INSERT INTO `customers` (`id`, `f_name`, `l_name`, `gender`, `address`, `city`, 
 (37, 'Jose', 'Pavarotti', 'male', '187 Suffolk Ln.', '', 'Maharashtra', '875213654', ' Pavarotti@gmail.com', '1997-02-04', NULL, NULL),
 (38, 'Palle', 'Ibsen', 'female', 'Smagsløget 45', '', 'Maharashtra', '9975245588', 'Palle@gmail.com', '1991-06-17', NULL, '2018-01-14 17:11:42'),
 (39, 'Paula', 'Parente', 'male', 'Rua do Mercado, 12', '', 'Maharashtra', '659984878', 'abc@gmail.com', '1996-02-06', NULL, NULL),
-(40, 'Siddy', 'V', 'male', 'pune', '', 'Maharashtra', '9830251478', 'sid@tewst.com', '1992-05-17', '2018-08-03 03:03:45', '2018-08-03 03:39:11');
+(40, 'Siddy', 'V', 'male', 'pune', '', 'Maharashtra', '9830251478', 'sid@tewst.com', '1992-05-17', '2018-08-03 03:03:45', '2018-08-03 03:39:11'),
+(41, 'Siddharth', 'Vitthaldas', 'male', 'Pune', '', 'Maharashtra', '9860676178', 'vitthaldas.siddharth@gmail.com', '2018-08-08', '2018-08-04 05:53:26', NULL),
+(42, 'jane', 'doe', 'male', 'usa', '', 'Maharashtra', '12345', 'jane@gmail.com', '0000-00-00', '2018-08-04 06:48:21', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `et_measurments`
+--
+
+CREATE TABLE `et_measurments` (
+  `measurment_id` int(20) NOT NULL,
+  `customer_id` int(20) NOT NULL,
+  `ub_a` varchar(50) DEFAULT NULL,
+  `ub_b` varchar(50) DEFAULT NULL,
+  `lb_a` varchar(50) DEFAULT NULL,
+  `lb_b` varchar(50) DEFAULT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `et_measurments`
+--
+
+INSERT INTO `et_measurments` (`measurment_id`, `customer_id`, `ub_a`, `ub_b`, `lb_a`, `lb_b`, `name`) VALUES
+(1, 21, '12', '23', '34', '45', 'sid'),
+(2, 21, '09', '87', '65', '43', 'nayan');
 
 -- --------------------------------------------------------
 
@@ -111,7 +135,7 @@ CREATE TABLE `et_users` (
 --
 
 INSERT INTO `et_users` (`id`, `full_name`, `user_name`, `password`, `type`) VALUES
-(3, 'Siddharth', 'sid', 'b8c1a3069167247e3503f0daba6c5723', 'administrator'),
+(3, 'Siddharth V', 'sid', 'b8c1a3069167247e3503f0daba6c5723', 'administrator'),
 (4, 'Nayan', 'nayan', 'b257312296cecbec7a9918cf5661dc51', 'employee');
 
 --
@@ -131,6 +155,12 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `et_measurments`
+--
+ALTER TABLE `et_measurments`
+  ADD PRIMARY KEY (`measurment_id`);
+
+--
 -- Indexes for table `et_users`
 --
 ALTER TABLE `et_users`
@@ -145,20 +175,21 @@ ALTER TABLE `et_users`
 --
 ALTER TABLE `admin_accounts`
   MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+--
+-- AUTO_INCREMENT for table `et_measurments`
+--
+ALTER TABLE `et_measurments`
+  MODIFY `measurment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `et_users`
 --
 ALTER TABLE `et_users`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

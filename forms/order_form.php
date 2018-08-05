@@ -42,8 +42,8 @@
                 
               </div>
                 
-                <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
-                  <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
+                <table class="table table-striped table-bordered table-condensed" id="customer-fetch" style="<?php echo ($_SERVER['REQUEST_METHOD'] == 'POST')? '' : 'display:none'; ?>">
+                  <?php //if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -52,32 +52,39 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <input type="hidden" name="customer_id" value="<?php echo $customer_data['id']; ?>" />
-                      <td><?php echo htmlspecialchars($customer_data['f_name']." ".$customer_data['l_name']); ?></td>
-                      <td><?php echo htmlspecialchars($customer_data['gender']) ?></td>
-                      <td><?php echo htmlspecialchars($customer_data['phone']) ?> </td>
+                    <tr id="cust_info">
+                      <input type="hidden" name="customer_id" id="cust_id" value="<?php echo ($_SERVER['REQUEST_METHOD'] == 'POST') ? $customer_data['id'] : '' ?>" />
+                      <td id="name"><?php echo ($_SERVER['REQUEST_METHOD'] == 'POST') ? htmlspecialchars($customer_data['f_name']." ".$customer_data['l_name']) : '' ?></td>
+                      <td id="gender"><?php echo ($_SERVER['REQUEST_METHOD'] == 'POST') ? htmlspecialchars($customer_data['gender']) : '' ?></td>
+                      <td id="phone"><?php echo ($_SERVER['REQUEST_METHOD'] == 'POST') ? htmlspecialchars($customer_data['phone']) : '' ?> </td>
                     </tr>
                   </tbody>
-                  <?php } ?>
+                  <?php //} ?>
                 </table>
-                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                <button class="btn btn-primary nextBtn pull-right" type="button" id="order-form-step2">Next</button>
             </div>
         </div>
         
         <div class="panel panel-primary setup-content" id="step-2">
             <div class="panel-heading">
-                 <h3 class="panel-title">Destination</h3>
+                 <h3 class="panel-title">Measurment Details</h3>
             </div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label">Company Name</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Company Address</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
-                </div>
+            <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
+                  <?php //if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
+                  <thead>
+                    <tr>
+                      <th>Select</th>
+                      <th>Name</th>
+                      <th>UB A</th>
+                      <th>UB B</th>
+                      <th>LB A</th>
+                      <th>LB B</th>
+                    </tr>
+                  </thead>
+                  <tbody id="measurment-table"></tbody>
+                  <?php // } ?>
+                </table>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
         </div>
