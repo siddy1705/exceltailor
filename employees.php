@@ -31,7 +31,7 @@ if ($order_by == "") {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('id', 'user_name', 'admin_type');
+$select = array('id', 'full_name', 'user_name', 'type');
 
 // If user searches 
 if ($search_string) {
@@ -44,7 +44,7 @@ if ($order_by) {
 }
 
 $db->pageLimit = $pagelimit;
-$result = $db->arraybuilder()->paginate("admin_accounts", $page, $select);
+$result = $db->arraybuilder()->paginate("et_users", $page, $select);
 $total_pages = $db->totalPages;
 
 
@@ -119,9 +119,9 @@ include_once 'includes/header.php';
     <table class="table table-striped table-bordered table-condensed">
         <thead>
             <tr>
-                <th class="header">#</th>
-                <th>Name</th>
-                <th>Admin type</th>
+                <th class="header">Name</th>
+                <th>User Name</th>
+                <th>User Type</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -130,12 +130,12 @@ include_once 'includes/header.php';
             <?php foreach ($result as $row) : ?>
                 
             <tr>
-                <td><?php echo $row['id'] ?></td>
+                <td><?php echo $row['full_name'] ?></td>
                 <td><?php echo htmlspecialchars($row['user_name']) ?></td>
-                <td><?php echo htmlspecialchars($row['admin_type']) ?></td>
+                <td><?php echo htmlspecialchars($row['type']) ?></td>
 
                 <td>
-                    <a href="edit_admin.php?admin_user_id=<?php echo $row['id']?>&operation=edit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="edit_employee.php?user_id=<?php echo $row['id']?>&operation=edit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 
                     <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span>
                     

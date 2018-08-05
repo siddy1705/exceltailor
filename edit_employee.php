@@ -4,13 +4,13 @@ require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
 
-$admin_user_id=  filter_input(INPUT_GET, 'admin_user_id');
+$user_id=  filter_input(INPUT_GET, 'user_id');
  $db = getDbInstance();
 //Serve POST request.  
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
     // If non-super user accesses this script via url. Stop the exexution
-    if($_SESSION['admin_type']!=='super')
+    if($_SESSION['user_type'] !== 'administrator')
     {
         // show permission denied message
         echo 'Permission Denied';
@@ -19,23 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
     // Sanitize input post if we want
     $data_to_update = filter_input_array(INPUT_POST);
-    $admin_user_id=  filter_input(INPUT_GET, 'admin_user_id',FILTER_VALIDATE_INT);
+    $user_id=  filter_input(INPUT_GET, 'user_id',FILTER_VALIDATE_INT);
     //Encrypting the password
-    $data_to_update['passwd']=md5($data_to_update['passwd']);
+    $data_to_update['password']=md5($data_to_update['password']);
     
-    $db->where('id',$admin_user_id);
-    $stat = $db->update ('admin_accounts', $data_to_update);
+    $db->where('id',$user_id);
+    $stat = $db->update ('et_users', $data_to_update);
     
     if($stat)
     {
-        $_SESSION['success'] = "Admin user has been updated successfully";
+        $_SESSION['success'] = "User has been updated successfully";
     }
     else
     {
-        $_SESSION['failure'] = "Failed to update Admin user";
+        $_SESSION['failure'] = "Failed to update user";
     }
 
-    header('location: admin_users.php');
+    header('location: employees.php');
     
 }
 
@@ -43,9 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 $operation = filter_input(INPUT_GET, 'operation',FILTER_SANITIZE_STRING); 
 ($operation == 'edit') ? $edit = true : $edit = false;
 //Select where clause
-$db->where('id', $admin_user_id);
+$db->where('id', $user_id);
 
-$admin_account = $db->getOne("admin_accounts");
+$user_account = $db->getOne("et_users");
 
 
 

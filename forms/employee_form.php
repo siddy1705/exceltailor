@@ -7,7 +7,7 @@
         <div class="col-md-4 inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
-                <input  type="text" name="full_name" placeholder="Full Name" class="form-control" value="<?php echo ($edit) ? $admin_account['user_name'] : ''; ?>" autocomplete="off">
+                <input  type="text" name="full_name" placeholder="Full Name" class="form-control" value="<?php echo ($edit) ? $user_account['full_name'] : ''; ?>" autocomplete="off">
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="col-md-4 inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input  type="text" name="user_name" placeholder="User Name" class="form-control" value="<?php echo ($edit) ? $admin_account['user_name'] : ''; ?>" autocomplete="off">
+                <input  type="text" name="user_name" placeholder="User Name" class="form-control" value="<?php echo ($edit) ? $user_account['user_name'] : ''; ?>" autocomplete="off">
             </div>
         </div>
     </div>
@@ -37,12 +37,12 @@
             <div class="radio">
                 <label>
                     <?php //echo $admin_account['admin_type'] ?>
-                    <input type="radio" name="type" value="administrator" required="" <?php echo ($edit && $admin_account['admin_type'] =='super') ? "checked": "" ; ?>/> Administrator
+                    <input type="radio" name="type" value="administrator" required="" <?php echo ($edit && $user_account['type'] =='administrator') ? "checked": "" ; ?>/> Administrator
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio" name="type" value="employee" required="" <?php echo ($edit && $admin_account['admin_type'] =='admin') ? "checked": "" ; ?>/> Employee
+                    <input type="radio" name="type" value="employee" required="" <?php echo ($edit && $user_account['type'] =='employee') ? "checked": "" ; ?>/> Employee
                 </label>
             </div>
         </div>

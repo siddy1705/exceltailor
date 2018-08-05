@@ -120,7 +120,7 @@ include_once 'includes/header.php';
     <table class="table table-striped table-bordered table-condensed">
         <thead>
             <tr>
-                <th class="header">#</th>
+                <!-- <th class="header">#</th> -->
                 <th>Name</th>
                 <th>Gender</th>
                 <th>phone</th>
@@ -130,15 +130,25 @@ include_once 'includes/header.php';
         <tbody>
             <?php foreach ($customers as $row) : ?>
                 <tr>
-	                <td><?php echo $row['id'] ?></td>
+	                <!-- <td><?php echo $row['id'] ?></td> -->
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
 	                <td><?php echo htmlspecialchars($row['gender']) ?></td>
 	                <td><?php echo htmlspecialchars($row['phone']) ?> </td>
 	                <td>
-					<a href="edit_customer.php?customer_id=<?php echo $row['id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span>
+                    <form action="add_order.php" method="POST" style="display:inline-block;">
+                      <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+                      <input type="hidden" name="f_name" value="<?php echo $row['f_name']; ?>" />
+                      <input type="hidden" name="l_name" value="<?php echo $row['l_name']; ?>" />
+                      <input type="hidden" name="gender" value="<?php echo $row['gender']; ?>" />
+                      <input type="hidden" name="phone" value="<?php echo $row['phone']; ?>" />
+                      <button type="submit" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></button>
+                    </form>
+                    
+                    <a href="edit_customer.php?customer_id=<?php echo $row['id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 
-					<a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></td>
-				</tr>
+                    <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
+                  </td>
+                </tr>
 
 						<!-- Delete Confirmation Modal-->
 					 <div class="modal fade" id="confirm-delete-<?php echo $row['id'] ?>" role="dialog">
