@@ -105,7 +105,7 @@ include_once('includes/header.php');
 			</div>
 		</div><!--/.row-->
 			<div class="col-sm-12">
-				<p class="back-link">Excel Tailors - <?php echo date('Y'); ?></p>
+				<p class="back-link">Excel Tailor - <?php echo date('Y'); ?></p>
 			</div>
 		</div><!--/.row-->
 

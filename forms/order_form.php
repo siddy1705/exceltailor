@@ -3,19 +3,19 @@
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-                <p><small>Shipper</small></p>
+                <p><small>Customer Details</small></p>
             </div>
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                <p><small>Destination</small></p>
+                <p><small>Measurment Details</small></p>
             </div>
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                <p><small>Schedule</small></p>
+                <p><small>Order Details</small></p>
             </div>
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                <p><small>Cargo</small></p>
+                <p><small>Finalize</small></p>
             </div>
         </div>
     </div>
@@ -71,36 +71,42 @@
             </div>
             <div class="panel-body">
             <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
-                  <?php //if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
-                  <thead>
-                    <tr>
-                      <th>Select</th>
-                      <th>Name</th>
-                      <th>UB A</th>
-                      <th>UB B</th>
-                      <th>LB A</th>
-                      <th>LB B</th>
-                    </tr>
-                  </thead>
-                  <tbody id="measurment-table"></tbody>
-                  <?php // } ?>
-                </table>
+                <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th>UB A</th>
+                    <th>UB B</th>
+                    <th>LB A</th>
+                    <th>LB B</th>
+                </tr>
+                </thead>
+                <tbody id="measurment-table"></tbody>
+            </table>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
         </div>
         
         <div class="panel panel-primary setup-content" id="step-3">
             <div class="panel-heading">
-                 <h3 class="panel-title">Schedule</h3>
+                 <h3 class="panel-title">Order Details</h3>
             </div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label">Company Name</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                <div class="form-group col-lg-4 col-sm-4 col-sx-4 ">
+                    <label class="control-label">Order Type</label>
+                    <select class="form-control" id="order-type" name="order-type">
+                        <option value="sherwani">Sherwani</option>
+                        <option value="kurta">Kurta</option>
+                        <option value="suit">Suit</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Company Address</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                <div class="form-group col-lg-8 col-sm-8 col-sx-8">
+                    <label class="control-label">Order Title</label>
+                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Order Title" />
+                </div>
+                <div class="form-group col-lg-12 col-sm-12 col-sx-12">
+                    <label class="control-label">Order Description</label>
+                    <textarea name="address" placeholder="Address" class="form-control" id="address" rows="5"></textarea>
                 </div>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
