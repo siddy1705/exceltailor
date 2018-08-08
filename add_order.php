@@ -8,7 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $customer_data = filter_input_array(INPUT_POST);
 }
 
+
 include_once 'includes/header.php';
+
+$db = getDbInstance();
+$users = $db->get('et_users');
 ?>
 <div id="page-wrapper">
     <div class="row">

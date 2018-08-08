@@ -16,7 +16,7 @@ $(document).ready(function () {
           $item.addClass('btn-success');
           allWells.hide();
           $target.show();
-          $target.find('input:eq(0)').focus();
+          //$target.find('input:eq(0)').focus();
       }
   });
 
@@ -42,6 +42,12 @@ $(document).ready(function () {
 
   $('#add_new_customer').hide();
 
+  $( "#delivery-date" ).datepicker();
+
+  $('#delivery-date').on('changeDate', function(ev){
+    $(this).datepicker('hide');
+  });
+
   // Get Customers from Mobile Number
   $("#get-customers").click(function(e) {
     if($("#phone-number").val() != ''){
@@ -55,8 +61,8 @@ $(document).ready(function () {
         },
         success: function(result) {
           if(result != null) {
-            console.log(result.id);
             //$('#cust_info > td').remove();
+            $('#add_new_customer').hide();
             $('#customer-fetch').show();
             $('#cust_id').val(result.id);
             $('#name').html(result.f_name + " " + result.l_name);
@@ -67,6 +73,7 @@ $(document).ready(function () {
         },
         error: function(result, error) {
           console.log(error);
+          $('#customer-fetch').hide();
           $('#add_new_customer').show();
         }
       });

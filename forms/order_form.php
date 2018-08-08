@@ -20,19 +20,20 @@
         </div>
     </div>
     
-    <form role="form">
+    <form role="form" action="save_order.php" method="post">
         <div class="panel panel-primary setup-content" id="step-1">
             <div class="panel-heading">
                  <h3 class="panel-title">Customer Details</h3>
             </div>
             <div class="panel-body">               
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                <label class="control-label">Enter customer's Mobile Number</label>
-									<div class="input-group">
-										<input type="number" id="phone-number" class="form-control" required="required" value="<?php echo ($_SERVER['REQUEST_METHOD'] == 'POST') ? htmlspecialchars($customer_data['phone']) : ''?>"><span class="input-group-btn" >
-                      <button id="get-customers" class="btn btn-default" type="button" data-original-title="" title="">Search</button>
-                  </span></div>
-                  
+                <label class="control-label">Enter customer's Name or Mobile Number</label>
+                    <div class="input-group">
+                        <input type="text" id="phone-number" class="form-control" required="required" value="<?php echo ($_SERVER['REQUEST_METHOD'] == 'POST') ? htmlspecialchars($customer_data['phone']) : ''?>">
+                        <span class="input-group-btn" >
+                            <button id="get-customers" class="btn btn-default" type="button" data-original-title="" title="">Search</button>
+                        </span>
+                    </div>  
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6" id="add_new_customer" style="margin-top:30px;">
                   <span class="no-customer">
@@ -100,13 +101,13 @@
                         <option value="suit">Suit</option>
                     </select>
                 </div>
-                <div class="form-group col-lg-8 col-sm-8 col-sx-8">
+                <div class="form-group col-lg-8 col-smtotal-amount-8 col-sx-8">
                     <label class="control-label">Order Title</label>
                     <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Order Title" />
                 </div>
                 <div class="form-group col-lg-12 col-sm-12 col-sx-12">
                     <label class="control-label">Order Description</label>
-                    <textarea name="address" placeholder="Address" class="form-control" id="address" rows="5"></textarea>
+                    <textarea name="order-description" placeholder="Address" class="form-control" id="address" rows="5"></textarea>
                 </div>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
@@ -114,16 +115,30 @@
         
         <div class="panel panel-primary setup-content" id="step-4">
             <div class="panel-heading">
-                 <h3 class="panel-title">Cargo</h3>
+                 <h3 class="panel-title">Finalize</h3>
             </div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label">Company Name</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
+                    <label class="control-label">Assigned To</label>
+                    <select class="form-control" id="assigned-to" name="assigned-to">
+                        <?php 
+                        foreach($users as $user) {
+                            echo '<option value="'. $user['id'] .'">'. $user['full_name'] .'</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Company Address</label>
-                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
+                    <label class="control-label">Delivery Date</label>
+                    <input type="text" required="required" class="form-control" placeholder="Enter Delivery Date" id="delivery-date" name="delivery-date"/>
+                </div>
+                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
+                    <label class="control-label">Total Amount</label>
+                    <input name="total-amount" type="text" required="required" class="form-control" placeholder="Enter Total Amount" />
+                </div>
+                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
+                    <label class="control-label">Amount Paid</label>
+                    <input name="amount-paid" type="text" required="required" class="form-control" placeholder="Enter Amount Paid" />
                 </div>
                 <button class="btn btn-success pull-right" type="submit">Finish!</button>
             </div>
