@@ -3,7 +3,7 @@ session_start();
 require_once './config/config.php';
 //If User has already logged in, redirect to dashboard page.
 if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === TRUE) {
-    header('Location:index.php');
+    header('Location:dashboard.php');
 }
 
 //If user has previously selected "remember me option", his credentials are stored in cookies.
@@ -21,7 +21,7 @@ if(isset($_COOKIE['username']) && isset($_COOKIE['password']))
     	//Allow user to login.
         $_SESSION['user_logged_in'] = TRUE;
         $_SESSION['user_type'] = $row[0]['type'];
-        header('Location:index.php');
+        header('Location:dashboard.php');
         exit;
     }
     else //Username Or password might be changed. Unset cookie

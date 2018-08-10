@@ -182,7 +182,7 @@ include_once 'includes/header.php';
             echo '<ul class="pagination text-center">';
             for ($i = 1; $i <= $total_pages; $i++) {
                 ($page == $i) ? $li_class = ' class="active"' : $li_class = "";
-                echo '<li' . $li_class . '><a href="index.php' . $http_query . '&page=' . $i . '">' . $i . '</a></li>';
+                echo '<li' . $li_class . '><a href="dashboard.php' . $http_query . '&page=' . $i . '">' . $i . '</a></li>';
             }
             echo '</ul></div>';
         }

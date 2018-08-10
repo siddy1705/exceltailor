@@ -8,6 +8,6 @@ if(isset($_COOKIE['username']) && isset($_COOKIE['password'])){
     setcookie('username', null, -1, '/');
     setcookie('password', null, -1, '/');
 }
-header('Location:index.php');
+header('Location:dashboard.php');
 
  ?>

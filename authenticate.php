@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
        		setcookie('username',$username , time() + (86400 * 90), "/");
        		setcookie('password',$password , time() + (86400 * 90), "/");
        	}
-        header('Location:index.php');
+        header('Location:dashboard.php');
         exit;
     } else {
      
