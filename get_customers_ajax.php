@@ -9,12 +9,9 @@ $db = getDbInstance();
 $db->where('phone', '%' . $phone . '%', 'like');
 $db->orwhere('f_name', '%' . $phone . '%', 'like');
 $db->orwhere('l_name', '%' . $phone . '%', 'like');
-$customer_data = $db->getOne ("customers");
+$customer_data = $db->get ("customers");
 ob_end_clean();
 
-if($customer_data == null) {
-  header('HTTP/1.1 500 Internal Server Error');
- } 
-else { echo json_encode($customer_data); } ?>
+echo json_encode($customer_data);
 
  

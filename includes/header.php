@@ -102,18 +102,8 @@
         </form> -->
         <ul class="nav menu">
             <li <?php echo (CURRENT_PAGE =="dashboard.php") ? 'class="active"' : '' ; ?>><a href="dashboard.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-            <li <?php echo (CURRENT_PAGE =="customers.php" || CURRENT_PAGE =="add_customer.php") ? 'class="parent active"' : 'class=" parent"' ; ?>><a data-toggle="collapse" href="#sub-item-1">
-                <em class="fa fa-navicon">&nbsp;</em> Customers <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                </a>
-                <ul class="children collapse" id="sub-item-1">
-                    <li ><a class="" href="customers.php">
-                        <span class="fa fa-arrow-right">&nbsp;</span> View All
-                    </a></li>
-                    <li><a class="" href="add_customer.php">
-                        <span class="fa fa-arrow-right">&nbsp;</span> Add New
-                    </a></li>
-                </ul>
-            </li>
+            <li <?php echo (CURRENT_PAGE =="customers.php" || CURRENT_PAGE =="add_customer.php") ? 'class="active"' : '' ; ?>><a href="customers.php"><em class="fa fa-navicon">&nbsp;</em> Customers</a></li>
+            <li <?php echo (CURRENT_PAGE =="orders.php" || CURRENT_PAGE =="add_order.php") ? 'class="active"' : '' ; ?>><a href="add_order.php"><em class="fa fa-navicon">&nbsp;</em> Orders</a></li>
             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
             <li <?php echo (CURRENT_PAGE =="employees.php") ? 'class="active"' : '' ; ?>><a href="employees.php"><em class="fa fa-dashboard">&nbsp;</em> Employees</a></li>
             <?php endif; ?>

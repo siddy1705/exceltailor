@@ -24,7 +24,7 @@ $(document).ready(function () {
       var curStep = $(this).closest(".setup-content"),
           curStepBtn = curStep.attr("id"),
           nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-          curInputs = curStep.find("input[type='text'],input[type='url']"),
+          curInputs = curStep.find("input[type='text'],input[type='radio']"),
           isValid = true;
 
       $(".form-group").removeClass("has-error");
@@ -36,6 +36,7 @@ $(document).ready(function () {
       }
 
       if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
+      else $('#customer_not_selected').show();
   });
 
   $('div.setup-panel div a.btn-success').trigger('click');
@@ -48,7 +49,7 @@ $(document).ready(function () {
     $(this).datepicker('hide');
   });
 
-  // Get Customers from Mobile Number
+  // Get Customers from Mobile Number & Name
   $("#get-customers").click(function(e) {
     if($("#phone-number").val() != ''){
       e.preventDefault();
@@ -59,22 +60,29 @@ $(document).ready(function () {
         data: {
           phone:  $("#phone-number").val(),
         },
-        success: function(result) {
-          if(result != null) {
-            //$('#cust_info > td').remove();
+        success: function(results) {
+          //console.log(results);
+          $('#customer_not_selected').hide();
+          if(results.length > 0) {
+            $('#cust_info ').remove();
+            $('#customer-table > tr ').remove();
             $('#add_new_customer').hide();
             $('#customer-fetch').show();
-            $('#cust_id').val(result.id);
-            $('#name').html(result.f_name + " " + result.l_name);
-            $('#gender').html(result.gender);
-            $('#phone').html(result.phone);
+            
+            results.forEach(result => {
+              $('#customer-table').append('<tr class="customer-info-'+ result.id +'">'
+              + '<td><input type="radio" name="customer-select" value="'+ result.id +'" required></td>'
+              + '<td>'+ result.f_name + ' ' + result.l_name +'</td>'
+              + '<td>'+ result.gender +'</td>'
+              + '<td>'+ result.phone +'</td>'
+              + '</tr>');
+            });
 
           }
-        },
-        error: function(result, error) {
-          console.log(error);
-          $('#customer-fetch').hide();
-          $('#add_new_customer').show();
+          else {
+            $('#customer-fetch').hide();
+            $('#add_new_customer').show();
+          }
         }
       });
     }
@@ -83,7 +91,7 @@ $(document).ready(function () {
 
   // Get Measurment Details
   $("#order-form-step2").click(function(e) {
-    var custId = $('#cust_id').val();
+    var custId = $('input[name=customer-select]:checked').val();
     console.log(custId)
       $.ajax({
         type: "POST",
@@ -93,8 +101,44 @@ $(document).ready(function () {
           cust_id: custId,
         },
         success: function(results) {
-          if(results != null) {
-            //var res = JSON.parse(result)
+          console.log(results);
+          if(results.length > 0) {
+            console.log(results);
+            $('#measurment-table > tr ').remove();
+            results.forEach(result => {
+              $('#measurment-table').append('<tr class="measurment-info-'+ result.measurment_id +'">'
+              + '<td><input type="radio" name="measurment-select" value="'+ result.measurment_id +'"></td>'
+              + '<td>'+ result.name +'</td>'
+              + '<td>'+ result.ub_a +'</td>'
+              + '<td>'+ result.ub_b +'</td>'
+              + '<td>'+ result.lb_a +'</td>'
+              + '<td>'+ result.lb_b +'</td>'
+              + '</tr>');
+            });
+          }
+        },
+        error: function(result, error) {
+          console.log(error);
+          
+        }
+      });
+  });
+
+  // Add and Display Measurments 
+  $("#save_measurment").click(function(e) {
+    var measurment_data = $('form').serializeArray();
+    var custId = $('input[name=customer-select]:checked').val();
+      $.ajax({
+        type: "POST",
+        url: "add_measurment_ajax.php",
+        dataType: "json",  
+        data: {
+          measurment_data: measurment_data,
+          custId: custId
+        },
+        success: function(results) {
+          if(results.length > 0) {
+            $('#measurment-table > tr ').remove();
             console.log(results);
             results.forEach(result => {
               $('#measurment-table').append('<tr class="measurment-info-'+ result.measurment_id +'">'
@@ -110,7 +154,7 @@ $(document).ready(function () {
         },
         error: function(result, error) {
           console.log(error);
-          $('#add_new_customer').show();
+          
         }
       });
   });
