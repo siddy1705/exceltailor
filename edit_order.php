@@ -1,26 +1,76 @@
-<?php 
+<?php
 session_start();
 require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') 
-{  
-  $customer_data = filter_input_array(INPUT_POST);
-  $cust_id = $customer_data['id'];
-  $phone_number = $customer_data['phone'];
-  $cust_name = $customer_data['f_name']." ".$customer_data['l_name'];
-  $cust_gender = $customer_data['gender'];
+
+// Sanitize if you want
+$order_id = filter_input(INPUT_GET, 'order_id', FILTER_VALIDATE_INT);
+$operation = filter_input(INPUT_GET, 'operation',FILTER_SANITIZE_STRING); 
+
+if($order_id == NULL && $operation == NULL) {
+    header('location: orders.php');
+    exit();
 }
 
 
-include_once 'includes/header.php';
+($operation == 'edit') ? $edit = true : $edit = false;
+ $db = getDbInstance();
 
-$db = getDbInstance();
-$users = $db->get('et_users');
+//Handle update request. As the form's action attribute is set to the same script, but 'POST' method, 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
+    //Get customer id form query string parameter.
+    $order_id = filter_input(INPUT_GET, 'order_id', FILTER_SANITIZE_STRING);
+
+    //Get input data
+    $data_to_update = filter_input_array(INPUT_POST);
+    
+    $data_to_update['updated_at'] = date('Y-m-d H:i:s');
+    $db = getDbInstance();
+    $db->where('order_id',$order_id);
+    $stat = $db->update('et_orders', $data_to_update);
+
+    if($stat)
+    {
+        $_SESSION['success'] = "Order updated successfully!";
+        //Redirect to the listing page,
+        header('location: orders.php');
+        //Important! Don't execute the rest put the exit/die. 
+        exit();
+    }
+}
+
+
+//If edit variable is set, we are performing the update operation.
+if($edit)
+{
+    $db->where('order_id', $order_id);
+    $order = $db->getOne("et_orders");
+
+    //var_dump($order['customer_id']); die;
+
+    $db->where('customer_id', $order['customer_id']);
+    $measurments = $db->get("et_measurments");
+
+    //var_dump($measurments); die;
+
+    $db->where('id', $order['customer_id']);
+    $customer_data = $db->getOne("customers");
+    $cust_id = $customer_data['id'];
+    $phone_number = $customer_data['phone'];
+    $cust_name = $customer_data['f_name']." ".$customer_data['l_name'];
+    $cust_gender = $customer_data['gender'];
+}
+?>
+
+
+<?php
+    include_once 'includes/header.php';
 ?>
 <div id="page-wrapper">
-    <div class="row">
-      <div class="col-lg-12"><h2 class="page-header">Add Order</h2></div>
+<div class="row">
+      <div class="col-lg-12"><h2 class="page-header">Update Order</h2></div>
     </div>
     <!-- Flash messages -->
     <?php
@@ -48,7 +98,7 @@ $users = $db->get('et_users');
     </div>
     
     <form role="form" action="save_order.php" method="POST">
-    <?php  include_once './forms/order_form.php'; ?>
+    <?php  include_once './forms/order_form_edit.php'; ?>
     </form>
 
 
@@ -94,7 +144,10 @@ $users = $db->get('et_users');
     </div>
 </div>
 <!-- Add Measurment Modal End -->
-  </div>
+
+</div>
 
 
-  <?php include_once 'includes/footer.php'; ?>
+
+
+<?php include_once 'includes/footer.php'; ?>

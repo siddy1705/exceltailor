@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 05, 2018 at 07:51 PM
--- Server version: 10.0.17-MariaDB
--- PHP Version: 5.5.30
+-- Host: localhost
+-- Generation Time: Aug 14, 2018 at 12:36 AM
+-- Server version: 5.7.22-0ubuntu0.17.10.1
+-- PHP Version: 5.6.36-1+ubuntu17.10.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -114,7 +114,52 @@ CREATE TABLE `et_measurments` (
 
 INSERT INTO `et_measurments` (`measurment_id`, `customer_id`, `ub_a`, `ub_b`, `lb_a`, `lb_b`, `name`) VALUES
 (1, 21, '12', '23', '34', '45', 'sid'),
-(2, 21, '09', '87', '65', '43', 'nayan');
+(2, 21, '09', '87', '65', '43', 'nayan'),
+(3, 23, 'sdf', 'sdf', 'sdf', NULL, 'sdf'),
+(4, 23, 'dfg', 'sdf', 'sdf', NULL, 'dfg'),
+(5, 23, '12', '23', '34', NULL, 'siddy'),
+(6, 21, '12', '23', '34', NULL, 'siddy'),
+(7, 21, '09', '98', '87', NULL, 'nanya'),
+(8, 23, '345', '46', '56', NULL, 'sid'),
+(9, 23, '11', '22', '33', NULL, 'siddy'),
+(10, 41, '12', '23', '34', '45', 'sid'),
+(11, 39, '23', '45', '78', '65', 'son'),
+(12, 24, '34', '345', '67', '908', 'ronny');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `et_orders`
+--
+
+CREATE TABLE `et_orders` (
+  `order_id` int(50) NOT NULL,
+  `customer_id` int(50) NOT NULL,
+  `measurment_id` int(50) NOT NULL,
+  `order_type` varchar(50) NOT NULL,
+  `order_title` varchar(100) NOT NULL,
+  `order_description` varchar(500) DEFAULT NULL,
+  `assigned_to` int(50) NOT NULL,
+  `delivery_date` date NOT NULL,
+  `total_amount` int(20) NOT NULL,
+  `amount_paid` int(20) DEFAULT NULL,
+  `order_status` varchar(20) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `et_orders`
+--
+
+INSERT INTO `et_orders` (`order_id`, `customer_id`, `measurment_id`, `order_type`, `order_title`, `order_description`, `assigned_to`, `delivery_date`, `total_amount`, `amount_paid`, `order_status`, `created_at`, `updated_at`) VALUES
+(1, 21, 1, 'sherwani', 'sdf', '', 3, '2018-08-28', 200, 50, 'Processing', '2018-08-12 12:28:32', '2018-08-12 12:28:32'),
+(2, 21, 2, 'sherwani', 'new order', 'new order suit', 3, '2018-08-31', 200, 100, 'Processing', '2018-08-12 13:24:14', '2018-08-12 13:24:14'),
+(3, 23, 3, 'suit', '3 piece suit', 'new', 4, '2018-08-31', 1000, 300, 'Processing', '2018-08-12 13:30:37', '2018-08-12 13:30:37'),
+(4, 41, 10, 'suit', '3 Piece Suit', '3 piece Suit with brown blazer', 4, '2018-09-05', 5000, 1500, 'Processing', '2018-08-12 15:41:55', '2018-08-12 15:41:55'),
+(5, 39, 11, 'sherwani', 'Sherwani for Son', '', 3, '2018-09-07', 2000, 100, 'Processing', '2018-08-13 16:48:01', '2018-08-13 16:48:01'),
+(6, 24, 12, 'sherwani', 'aksljaks', '', 4, '2018-08-29', 345, 23, 'Processing', '2018-08-13 18:12:14', '2018-08-13 18:12:14'),
+(7, 23, 5, 'Sherwani', 'sdfdsADSFAD', '', 3, '2018-08-23', 400, 10, 'Processing', '2018-08-13 18:57:34', '2018-08-13 18:57:34');
 
 -- --------------------------------------------------------
 
@@ -161,6 +206,12 @@ ALTER TABLE `et_measurments`
   ADD PRIMARY KEY (`measurment_id`);
 
 --
+-- Indexes for table `et_orders`
+--
+ALTER TABLE `et_orders`
+  ADD PRIMARY KEY (`order_id`);
+
+--
 -- Indexes for table `et_users`
 --
 ALTER TABLE `et_users`
@@ -179,12 +230,17 @@ ALTER TABLE `admin_accounts`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `et_measurments`
 --
 ALTER TABLE `et_measurments`
-  MODIFY `measurment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `measurment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `et_orders`
+--
+ALTER TABLE `et_orders`
+  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `et_users`
 --

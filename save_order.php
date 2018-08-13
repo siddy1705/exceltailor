@@ -14,15 +14,21 @@ require_once 'includes/auth_validate.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
     $data_to_store = filter_input_array(INPUT_POST);
-    var_dump($data_to_store); die;
+    $data_to_store['order_status'] = 'Processing';
+    $data_to_store['customer_id'] = (int)$data_to_store['customer_id'];
+    $data_to_store['measurment_id'] = (int)$data_to_store['measurment_id'];
+    $data_to_store['total_amount'] = (int)$data_to_store['total_amount'];
+    $data_to_store['amount_paid'] = (int)$data_to_store['amount_paid'];
+    $data_to_store['delivery_date'] = date('Y-m-d', strtotime($data_to_store['delivery_date']));
+
+    //var_dump($data_to_store); die;
     $db = getDbInstance();
-    //Password should be md5 encrypted
-    $data_to_store['password'] = md5($data_to_store['password']);
-    $last_id = $db->insert ('et_users', $data_to_store);
+   
+    $last_id = $db->insert ('et_orders', $data_to_store);
     if($last_id)
     {
-    	$_SESSION['success'] = "Admin user added successfully!";
-    	header('location: employees.php');
+    	$_SESSION['success'] = "New Order Added Successfully!";
+    	header('location: orders.php');
     	exit();
     }  
     

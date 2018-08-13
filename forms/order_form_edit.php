@@ -1,32 +1,10 @@
 
     
-        <div class="panel panel-primary setup-content" id="step-1">
+    <div class="panel panel-primary setup-content" id="step-1">
             <div class="panel-heading">
                  <h3 class="panel-title">Customer Details</h3>
             </div>
-            <div class="panel-body">               
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                <label class="control-label">Enter customer's Name or Mobile Number</label>
-                    <div class="input-group">
-                        <input type="text" id="phone-number" class="form-control" required="required" value="<?php echo ($phone_number != NULL) ? $phone_number : ''?>">
-                        <span class="input-group-btn" >
-                            <button id="get-customers" class="btn btn-default" type="button" data-original-title="" title="">Search</button>
-                        </span>
-                    </div>  
-                </div>
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6" id="add_new_customer" style="margin-top:30px;">
-                  <span class="no-customer">
-                  <strong style="color:red">No Customer Found!   </strong>
-                  <a href="add_customer.php" class="btn btn-default btn-sm" style="margin-right: 8px;">Add New </a>
-                  </span>
-                </div>
-
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6" id="customer_not_selected" style="margin-top:30px; display:none;">
-                  <span class="no-customer">
-                  <strong style="color:red">Please select a Customer!   </strong>
-                  </span>
-                </div>
-                
+            <div class="panel-body">                               
                 <table class="table table-striped table-bordered table-condensed" id="customer-fetch" style="<?php echo ($cust_id != NULL)? '' : 'display:none'; ?>">
                   <?php //if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
                   <thead>
@@ -73,7 +51,20 @@
                 </tr>
                 </thead>
                 <tbody id="measurment-table">
-                    
+                   <?php 
+                    if($edit){
+                        foreach($measurments as $measurment) {
+                            echo '<tr class="measurment-info-'. $measurment['measurment_id'] .'">'
+                            . '<td><input type="radio" name="measurment_id" value="'. $measurment['measurment_id'] .'"></td>'
+                            . '<td>'. $measurment['name'] .'</td>'
+                            . '<td>'. $measurment['ub_a'] .'</td>'
+                            . '<td>'. $measurment['ub_b'] .'</td>'
+                            . '<td>'. $measurment['lb_a'] .'</td>'
+                            . '<td>'. $measurment['lb_b'] .'</td>'
+                            . '</tr>';
+                        }
+                    }
+                   ?>
                 </tbody>
             </table>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -90,7 +81,7 @@
                     <select class="form-control" id="order-type" name="order_type">
                         <option value="Sherwani">Sherwani</option>
                         <option value="Kurta">Kurta</option>
-                        <option value="suit">Suit</option>
+                        <option value="Suit">Suit</option>
                     </select>
                 </div>
                 <div class="form-group col-lg-8 col-smtotal-amount-8 col-sx-8">
