@@ -5,7 +5,7 @@ require_once './config/config.php';
 $cust_id = $_POST['cust_id'];
 $db = getDbInstance();
 $db->where ("customer_id", $cust_id);
-$measurment_data = $db->get ("et_measurments");
+$measurment_data = $db->get ("et_new_measurments");
 ob_end_clean();
 
 if($measurment_data == null) {

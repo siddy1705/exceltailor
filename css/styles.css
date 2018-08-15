@@ -1031,3 +1031,7 @@ p.back-link {
   margin-bottom: 20px;
   font-size: 12px;
   text-transform: uppercase; }
+
+.order-buttons {
+  margin-top: 24px;
+}

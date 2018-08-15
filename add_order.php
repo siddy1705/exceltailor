@@ -54,7 +54,7 @@ $users = $db->get('et_users');
 
 <!-- Add Measurment Modal -->
 <div class="modal fade" id="add_measurment" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form action="" method="POST" id="add_measurment">
         <!-- Modal content-->
             <div class="modal-content">
@@ -62,28 +62,79 @@ $users = $db->get('et_users');
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add New Measurment</h4>
             </div>
-            <div class="modal-body" style="height:278px;">
+            <div class="modal-body" style="height:570px;">
                 
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
+                <div class="form-group col-lg-12 col-sm-12 col-sx-12">
                     <label class="control-label">Measurment Name</label>
                     <input type="text" class="form-control" placeholder="Enter Measurment Name" id="measurment_name" name="measurment_name"/> 
                 </div>
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                    <label class="control-label">UB A</label>
-                    <input type="text" class="form-control" placeholder="Enter UB A" id="ub-a" name="ub-a"/>
+                
+                <h4 style="text-align:center">Upper Body</h4>
+                <hr/>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Length</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_length" name="ub_length"/>
                 </div>
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                    <label class="control-label">UB B</label>
-                    <input type="text" class="form-control" placeholder="Enter UB B" id="ub-b" name="ub-b"/>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Chest</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_chest" name="ub_chest"/>
                 </div>
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                    <label class="control-label">LB A</label>
-                    <input type="text" class="form-control" placeholder="Enter LB A" id="lb-a" name="lb-a"/>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Stomach</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_stomach" name="ub_stomach"/>
                 </div>
-                <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                    <label class="control-label">LB B</label>
-                    <input type="text" class="form-control" placeholder="Enter LB B" id="lb-b" name="lb-b"/>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Hip</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_hip" name="ub_hip"/>
                 </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Shoulders</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_shoulders" name="ub_shoulders"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Sleeves</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_sleeves" name="ub_sleeves"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Sleeve Round</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_sleeve_round" name="ub_sleeve_round"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Neck</label>
+                    <input type="text" class="form-control" placeholder="" id="ub_neck" name="ub_neck"/>
+                </div>
+               
+                <h4 style="text-align:center">Lower Body</h4>
+                <hr/>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Length</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_length" name="lb_length"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Waist</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_waist" name="lb_waist"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Hip</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_hip" name="lb_hip"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Thigh</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_thigh" name="lb_thigh"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Knee</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_knee" name="lb_knee"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Bottom</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_bottom" name="lb_bottom"/>
+                </div>
+                <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                    <label class="control-label">Inside</label>
+                    <input type="text" class="form-control" placeholder="" id="lb_inside" name="lb_inside"/>
+                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success pull-left" id="save_measurment" data-dismiss="modal">Save</button>

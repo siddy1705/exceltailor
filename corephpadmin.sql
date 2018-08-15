@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 14, 2018 at 12:36 AM
+-- Generation Time: Aug 15, 2018 at 07:37 PM
 -- Server version: 5.7.22-0ubuntu0.17.10.1
 -- PHP Version: 5.6.36-1+ubuntu17.10.1+deb.sury.org+1
 
@@ -129,6 +129,56 @@ INSERT INTO `et_measurments` (`measurment_id`, `customer_id`, `ub_a`, `ub_b`, `l
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `et_new_measurments`
+--
+
+CREATE TABLE `et_new_measurments` (
+  `measurment_id` int(20) NOT NULL,
+  `customer_id` int(20) NOT NULL,
+  `measurment_name` varchar(100) NOT NULL,
+  `ub_length` varchar(20) DEFAULT NULL,
+  `ub_chest` varchar(20) DEFAULT NULL,
+  `ub_stomach` varchar(20) DEFAULT NULL,
+  `ub_hip` varchar(20) DEFAULT NULL,
+  `ub_shoulders` varchar(20) DEFAULT NULL,
+  `ub_sleeves` varchar(20) DEFAULT NULL,
+  `ub_sleeve_round` varchar(20) DEFAULT NULL,
+  `ub_neck` varchar(20) DEFAULT NULL,
+  `lb_length` varchar(20) DEFAULT NULL,
+  `lb_waist` varchar(20) DEFAULT NULL,
+  `lb_hip` varchar(20) DEFAULT NULL,
+  `lb_thigh` varchar(20) DEFAULT NULL,
+  `lb_knee` varchar(20) DEFAULT NULL,
+  `lb_bottom` varchar(20) DEFAULT NULL,
+  `lb_inside` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `et_new_measurments`
+--
+
+INSERT INTO `et_new_measurments` (`measurment_id`, `customer_id`, `measurment_name`, `ub_length`, `ub_chest`, `ub_stomach`, `ub_hip`, `ub_shoulders`, `ub_sleeves`, `ub_sleeve_round`, `ub_neck`, `lb_length`, `lb_waist`, `lb_hip`, `lb_thigh`, `lb_knee`, `lb_bottom`, `lb_inside`) VALUES
+(1, 21, 'siddharth', '12', '23', '34', '45', '56', '67', '78', '89', '90', '9', '98', '87', '76', '65', '54'),
+(2, 21, 'nayan', '11', '11', '11', '22', '22', '22', '33', '33', '11', '21', '22', '11', '23', '33', '34'),
+(3, 21, 'sid', '0', '99', '88', '99', '98', '87', '67', '89', '67', '77', '678', '89', '9', '99', '97'),
+(4, 21, 'test', '12', '76', '54', '67', '54', '32', '57', '897', '765', '86', '87', '9', '55', '7', '57'),
+(5, 21, 'test', '12', '76', '54', '67', '54', '32', '57', '897', '765', '86', '87', '9', '55', '7', '57'),
+(6, 24, 'sidd', '23', '34', '43', '34', '34', '4', '5', '45', '45', '45', '45', '45', '45', '54', '45'),
+(7, 24, 'nayan', '12', '34', '65', '87', '98', '45', '76', '87', '98', '65', '43', '65', '87', '98', '56'),
+(8, 23, 'sidd', '67', '56', '76', '87', '5', '4', '5', '87', '5', '78', '698', '76', '4', '7', '687'),
+(9, 23, 'nayan', '65', '76', '7', '87', '75', '6', '87', '9', '0', '5', '6', '78', '98', '5', '76'),
+(10, 40, 'siddharth', '12', '23', '45', '67', '89', '90', '78', '56', '45', '65', '76', '87', '65', '76', '98'),
+(11, 41, 'sidd', '34', '45', '78', '567', '54', '5', '56', '9', '5', '65', '76', '76', '65', '54', '76'),
+(12, 41, 'eeee', '657', '87', '98', '86', '6', '76', '87', '87', '76', '76', '87', '86', '756', '57', '67'),
+(13, 40, 'HHH', '87', '87', '98', '98', '87', '87', '978', '98', '7', '98', '9', '89', '879', '89', '89'),
+(14, 41, 'BBB', '76', '8', '897', '7', '98', '7978', '87', '0', '7897', '987', '897', '97', '987', '7', '89'),
+(15, 24, 'TYTYT', '76', '987', '789', '87', '786', '76', '876', '876', '876', '6', '78', '687', '6876', '86', '78'),
+(16, 29, 'SIDD', '76', '87', '897', '89', '', '', '', '', '', '', '', '', '', '', ''),
+(17, 36, 'SIDD', '76', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `et_orders`
 --
 
@@ -153,13 +203,15 @@ CREATE TABLE `et_orders` (
 --
 
 INSERT INTO `et_orders` (`order_id`, `customer_id`, `measurment_id`, `order_type`, `order_title`, `order_description`, `assigned_to`, `delivery_date`, `total_amount`, `amount_paid`, `order_status`, `created_at`, `updated_at`) VALUES
-(1, 21, 1, 'sherwani', 'sdf', '', 3, '2018-08-28', 200, 50, 'Processing', '2018-08-12 12:28:32', '2018-08-12 12:28:32'),
-(2, 21, 2, 'sherwani', 'new order', 'new order suit', 3, '2018-08-31', 200, 100, 'Processing', '2018-08-12 13:24:14', '2018-08-12 13:24:14'),
-(3, 23, 3, 'suit', '3 piece suit', 'new', 4, '2018-08-31', 1000, 300, 'Processing', '2018-08-12 13:30:37', '2018-08-12 13:30:37'),
-(4, 41, 10, 'suit', '3 Piece Suit', '3 piece Suit with brown blazer', 4, '2018-09-05', 5000, 1500, 'Processing', '2018-08-12 15:41:55', '2018-08-12 15:41:55'),
+(1, 21, 1, 'Sherwani', 'sdf', '', 3, '2018-08-28', 200, 50, 'Processing', '2018-08-12 12:28:32', '2018-08-12 12:28:32'),
+(2, 21, 2, 'Sherwani', 'new order', 'new order suit', 3, '2018-08-31', 200, 100, 'Processing', '2018-08-12 13:24:14', '2018-08-12 13:24:14'),
+(3, 23, 3, 'Suit', '3 piece suit', 'new', 4, '2018-08-31', 1000, 300, 'Processing', '2018-08-12 13:30:37', '2018-08-12 13:30:37'),
+(4, 41, 10, 'Suit', '3 Piece Suit', '3 piece Suit with brown blazer', 4, '2018-09-28', 5000, 1500, 'Processing', '2018-08-12 15:41:55', '2018-08-14 13:13:42'),
 (5, 39, 11, 'sherwani', 'Sherwani for Son', '', 3, '2018-09-07', 2000, 100, 'Processing', '2018-08-13 16:48:01', '2018-08-13 16:48:01'),
-(6, 24, 12, 'sherwani', 'aksljaks', '', 4, '2018-08-29', 345, 23, 'Processing', '2018-08-13 18:12:14', '2018-08-13 18:12:14'),
-(7, 23, 5, 'Sherwani', 'sdfdsADSFAD', '', 3, '2018-08-23', 400, 10, 'Processing', '2018-08-13 18:57:34', '2018-08-13 18:57:34');
+(6, 24, 15, 'Sherwani', 'aksljaks', '', 4, '2018-08-29', 345, 23, 'Processing', '2018-08-13 18:12:14', '2018-08-15 13:51:57'),
+(7, 23, 5, 'Sherwani', 'sdfdsADSFAD', '', 3, '2018-08-23', 400, 10, 'Cancelled', '2018-08-13 18:57:34', '2018-08-15 06:17:17'),
+(8, 24, 12, 'Sherwani', 'aksljaks', '', 4, '2029-02-08', 345, 23, 'Completed', '2018-08-14 13:04:32', '2018-08-15 06:16:53'),
+(9, 40, 10, 'suit', '3 piece with square buttons', 'with blazer', 4, '2018-08-31', 7000, 2000, 'Processing', '2018-08-15 12:06:47', '2018-08-15 12:06:47');
 
 -- --------------------------------------------------------
 
@@ -206,6 +258,12 @@ ALTER TABLE `et_measurments`
   ADD PRIMARY KEY (`measurment_id`);
 
 --
+-- Indexes for table `et_new_measurments`
+--
+ALTER TABLE `et_new_measurments`
+  ADD PRIMARY KEY (`measurment_id`);
+
+--
 -- Indexes for table `et_orders`
 --
 ALTER TABLE `et_orders`
@@ -237,10 +295,15 @@ ALTER TABLE `customers`
 ALTER TABLE `et_measurments`
   MODIFY `measurment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `et_new_measurments`
+--
+ALTER TABLE `et_new_measurments`
+  MODIFY `measurment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
 -- AUTO_INCREMENT for table `et_orders`
 --
 ALTER TABLE `et_orders`
-  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `et_users`
 --

@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
      
         $_SESSION['user_logged_in'] = TRUE;
         $_SESSION['user_type'] = $row[0]['type'];
-        $_SESSION['full_name'] = $row[0]['full_name'];;
+        $_SESSION['full_name'] = $row[0]['full_name'];
+        $_SESSION['user_id'] = $row[0]['id'];
        	if($remember)
        	{
        		setcookie('username',$username , time() + (86400 * 90), "/");

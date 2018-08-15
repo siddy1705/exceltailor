@@ -61,7 +61,7 @@
                 <a href="" class="btn btn-default" style="margin-right: 8px;" data-toggle="modal" data-target="#add_measurment">Add New Measurment </a>
             </div>
             
-            <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
+            <!-- <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
                 <thead>
                 <tr>
                     <th>Select</th>
@@ -70,6 +70,37 @@
                     <th>UB B</th>
                     <th>LB A</th>
                     <th>LB B</th>
+                </tr>
+                </thead>
+                <tbody id="measurment-table">
+                    
+                </tbody>
+            </table> -->
+
+            <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
+                <thead>
+                <tr>
+                    <th rowspan="2">Select</th>
+                    <th rowspan="2">Name</th>
+                    <th colspan="8">Upper Body</th>
+                    <th colspan="7">Lower Body</th>
+                </tr>
+                <tr>
+                    <th>Length</th>
+                    <th>Chest</th>
+                    <th>Stomach</th>
+                    <th>Hip</th>
+                    <th>Shoulders</th>
+                    <th>Sleeves</th>
+                    <th>Sleeve Round</th>
+                    <th>Neck</th>
+                    <th>Length</th>
+                    <th>Waist</th>
+                    <th>Hip</th>
+                    <th>Thigh</th>
+                    <th>Knee</th>
+                    <th>Bottom</th>
+                    <th>Inside</th>
                 </tr>
                 </thead>
                 <tbody id="measurment-table">
@@ -91,6 +122,10 @@
                         <option value="Sherwani">Sherwani</option>
                         <option value="Kurta">Kurta</option>
                         <option value="suit">Suit</option>
+                        <option value="Formals">Formals</option>
+                        <option value="Indo-Westren">Indo-Westren</option>
+                        <option value="Pathani">Pathani</option>
+                        <option value="Safari">Safari</option>
                     </select>
                 </div>
                 <div class="form-group col-lg-8 col-smtotal-amount-8 col-sx-8">

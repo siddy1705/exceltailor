@@ -101,18 +101,29 @@ $(document).ready(function () {
           cust_id: custId,
         },
         success: function(results) {
-          console.log(results);
+          //console.log(results);
           if(results.length > 0) {
-            console.log(results);
+            //console.log(results);
             $('#measurment-table > tr ').remove();
             results.forEach(result => {
               $('#measurment-table').append('<tr class="measurment-info-'+ result.measurment_id +'">'
               + '<td><input type="radio" name="measurment_id" value="'+ result.measurment_id +'"></td>'
-              + '<td>'+ result.name +'</td>'
-              + '<td>'+ result.ub_a +'</td>'
-              + '<td>'+ result.ub_b +'</td>'
-              + '<td>'+ result.lb_a +'</td>'
-              + '<td>'+ result.lb_b +'</td>'
+              + '<td>'+ result.measurment_name +'</td>'
+              + '<td>'+ result.ub_length +'</td>'
+              + '<td>'+ result.ub_chest +'</td>'
+              + '<td>'+ result.ub_stomach +'</td>'
+              + '<td>'+ result.ub_hip +'</td>'
+              + '<td>'+ result.ub_shoulders +'</td>'
+              + '<td>'+ result.ub_sleeves +'</td>'
+              + '<td>'+ result.ub_sleeve_round +'</td>'
+              + '<td>'+ result.ub_neck +'</td>'
+              + '<td>'+ result.lb_length +'</td>'
+              + '<td>'+ result.lb_waist +'</td>'
+              + '<td>'+ result.lb_hip +'</td>'
+              + '<td>'+ result.lb_thigh +'</td>'
+              + '<td>'+ result.lb_knee +'</td>'
+              + '<td>'+ result.lb_bottom +'</td>'
+              + '<td>'+ result.lb_inside +'</td>'
               + '</tr>');
             });
           }
@@ -126,8 +137,9 @@ $(document).ready(function () {
 
   // Add and Display Measurments 
   $("#save_measurment").click(function(e) {
-    var measurment_data = $('form').serializeArray();
+    var measurment_data = $('form#add_measurment').serializeArray();
     var custId = $('input[name=customer_id]:checked').val();
+    //console.log(measurment_data);
       $.ajax({
         type: "POST",
         url: "add_measurment_ajax.php",
@@ -137,19 +149,32 @@ $(document).ready(function () {
           custId: custId
         },
         success: function(results) {
+          console.log(results);
           if(results.length > 0) {
             $('#measurment-table > tr ').remove();
             console.log(results);
             results.forEach(result => {
               $('#measurment-table').append('<tr class="measurment-info-'+ result.measurment_id +'">'
               + '<td><input type="radio" name="measurment_id" value="'+ result.measurment_id +'"></td>'
-              + '<td>'+ result.name +'</td>'
-              + '<td>'+ result.ub_a +'</td>'
-              + '<td>'+ result.ub_b +'</td>'
-              + '<td>'+ result.lb_a +'</td>'
-              + '<td>'+ result.lb_b +'</td>'
+              + '<td>'+ result.measurment_name +'</td>'
+              + '<td>'+ result.ub_length +'</td>'
+              + '<td>'+ result.ub_chest +'</td>'
+              + '<td>'+ result.ub_stomach +'</td>'
+              + '<td>'+ result.ub_hip +'</td>'
+              + '<td>'+ result.ub_shoulders +'</td>'
+              + '<td>'+ result.ub_sleeves +'</td>'
+              + '<td>'+ result.ub_sleeve_round +'</td>'
+              + '<td>'+ result.ub_neck +'</td>'
+              + '<td>'+ result.lb_length +'</td>'
+              + '<td>'+ result.lb_waist +'</td>'
+              + '<td>'+ result.lb_hip +'</td>'
+              + '<td>'+ result.lb_thigh +'</td>'
+              + '<td>'+ result.lb_knee +'</td>'
+              + '<td>'+ result.lb_bottom +'</td>'
+              + '<td>'+ result.lb_inside +'</td>'
               + '</tr>');
             });
+            
           }
         },
         error: function(result, error) {

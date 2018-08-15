@@ -34,8 +34,8 @@ $select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.order_type', 'o.order_t
 // If search string
 if ($search_string) 
 {
-    $db->where('f_name', '%' . $search_string . '%', 'like');
-    $db->orwhere('l_name', '%' . $search_string . '%', 'like');
+    $db->where('c.f_name', '%' . $search_string . '%', 'like');
+    $db->orwhere('c.l_name', '%' . $search_string . '%', 'like');
 }
 
 //If order by option selected
@@ -50,6 +50,12 @@ $db->pageLimit = $pagelimit;
 //Get result of the query.
 $db->join("customers c", "o.customer_id=c.id", "LEFT");
 $db->join("et_users e", "o.assigned_to=e.id", "LEFT");
+
+if($_SESSION['user_type'] == 'employee'){
+    $user_id = $_SESSION['user_id'];
+    //echo $user_id; die;
+    $db->where("o.assigned_to", $user_id);
+}
 
 $orders = $db->arraybuilder()->paginate("et_orders o", $page, $select);
 $total_pages = $db->totalPages;
@@ -131,6 +137,7 @@ include_once 'includes/header.php';
                 <th>Order Title </th>
                 <th>Delivery Date </th>
                 <th>Assigned To </th>
+                <th>Order Status </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -142,8 +149,9 @@ include_once 'includes/header.php';
 	                <td><?php echo htmlspecialchars($row['order_title']) ?> </td>
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
 	                <td><?php echo htmlspecialchars($row['full_name']) ?> </td>
+                    <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
 	                <td>
-                    <a href="edit_customer.php?customer_id=<?php echo $row['id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 
                     <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>
@@ -152,7 +160,7 @@ include_once 'includes/header.php';
 						<!-- Delete Confirmation Modal-->
 					 <div class="modal fade" id="confirm-delete-<?php echo $row['id'] ?>" role="dialog">
 					    <div class="modal-dialog">
-					      <form action="delete_customer.php" method="POST">
+					      <form action="delete_order.php" method="POST">
 					      <!-- Modal content-->
 						      <div class="modal-content">
 						        <div class="modal-header">
@@ -161,7 +169,7 @@ include_once 'includes/header.php';
 						        </div>
 						        <div class="modal-body">
 						      
-						        		<input type="hidden" name="del_id" id = "del_id" value="<?php echo $row['id'] ?>">
+						        		<input type="hidden" name="del_id" id = "del_id" value="<?php echo $row['order_id'] ?>">
 						        	
 						          <p>Are you sure you want to delete this customer?</p>
 						        </div>
