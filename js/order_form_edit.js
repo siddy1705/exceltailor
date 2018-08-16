@@ -117,4 +117,15 @@ $(document).ready(function () {
     $('.order-buttons > a').attr("disabled","disabled");
   })
 
+  $('#print-receipt').click(function(e){
+    var orderId = $('#order-id').val();
+    var customerName = $('td#name').html();
+    var orderTitle = $('#order-title').val();
+    var totalAmount = $('#total-amount').val();
+    var orderStatus = $('#order-status :selected').val();
+
+    if(orderStatus == 'Completed')
+    console.log(orderId +' '+ customerName + ' ' + orderTitle + ' ' + totalAmount + ' ' + orderStatus);
+  })
+
 });

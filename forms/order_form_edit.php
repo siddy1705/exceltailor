@@ -4,7 +4,8 @@
             <div class="panel-heading">
                  <h3 class="panel-title">Customer Details</h3>
             </div>
-            <div class="panel-body">                               
+            <div class="panel-body">
+                <input type="hidden" id="order-id" value="<?php echo $order['order_id']; ?>" />                             
                 <table class="table table-striped table-bordered table-condensed" id="customer-fetch" style="<?php echo ($cust_id != NULL)? '' : 'display:none'; ?>">
                   <?php //if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
                   <thead>
@@ -117,7 +118,7 @@
                 </div>
                 <div class="form-group col-lg-8 col-smtotal-amount-8 col-sx-8">
                     <label class="control-label">Order Title</label>
-                    <input maxlength="200" name="order_title" type="text" required="required" class="form-control" placeholder="Enter Order Title" value="<?php echo $order['order_title']; ?>" />
+                    <input maxlength="200" name="order_title" id="order-title" type="text" required="required" class="form-control" placeholder="Enter Order Title" value="<?php echo $order['order_title']; ?>" />
                 </div>
                 <div class="form-group col-lg-12 col-sm-12 col-sx-12">
                     <label class="control-label">Order Description</label>
@@ -149,7 +150,7 @@
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Total Amount</label>
-                    <input name="total_amount" type="number" required="required" class="form-control" placeholder="Enter Total Amount" value="<?php echo $order['total_amount']; ?>"/>
+                    <input name="total_amount" type="number" required="required" class="form-control" placeholder="Enter Total Amount" id="total-amount" value="<?php echo $order['total_amount']; ?>"/>
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Amount Paid</label>
@@ -167,7 +168,7 @@
                 <a href="#" class="btn btn-block btn-lg btn-info"><span class="glyphicon glyphicon-send"></span> Send SMS</a>    
                 </div>
                 <div class="form-group col-lg-3 col-sm-3 col-sx-3 order-buttons">
-                <a href="#" class="btn btn-block btn-lg btn-info"><span class="glyphicon glyphicon-print"></span> Print Receipt</a>    
+                <a href="#" class="btn btn-block btn-lg btn-info" id="print-receipt"><span class="glyphicon glyphicon-print"></span> Print Receipt</a>    
                 </div>
                 <button class="btn btn-success pull-right" type="submit">Save Order!</button>
             </div>
