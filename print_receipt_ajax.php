@@ -1,0 +1,90 @@
+<?php
+ob_start();
+require_once './config/config.php';
+require('fpdf/fpdf.php');
+
+$order_id = $_POST['orderId'];
+$customer_name = $_POST['customerName'];
+$order_title = $_POST['orderTitle'];
+$total_amount = $_POST['totalAmount'];
+$tax_excluded_amount = round($total_amount / ((18 / 100) + 1), 2);
+$tax_amount = round($total_amount - $tax_excluded_amount, 2);
+
+// $tax_excluded_amount = $total_amount / ((18 / 100) + 1);
+// $tax_amount = $total_amount - $tax_excluded_amount;
+
+$receipt_no = str_pad($order_id, 4, '0', STR_PAD_LEFT);
+
+// echo json_encode($receipt_no);
+
+$pdf = new FPDF();
+$pdf->AddPage('P');
+$pdf->SetFont('Arial','B',14);
+$pdf->Rect(10, 10, 190, 160, 'D');
+$pdf->Cell(115);
+$pdf->SetTextColor(255,0,0);
+$pdf->Cell(30,10,'EXCEL MEN\'S WEAR');
+$pdf->Ln(5);
+$pdf->SetFont('Arial','I',10);
+$pdf->SetTextColor(0,0,0);
+$pdf->Cell(95);
+$pdf->Cell(30,10,'102 Ghorpade peth, Aman Heights, Opp Devki Restaurent,');
+$pdf->Ln(5);
+$pdf->Cell(125);
+$pdf->Cell(30,10,'Pune - 411042');
+$pdf->Ln(15);
+$pdf->SetFont('Arial','',14);
+$pdf->Cell(7);
+$pdf->Cell(27,10,'Receipt No: ');
+$pdf->SetFont('Arial','B',14);
+$pdf->Cell(2, 10, $receipt_no);
+$pdf->Cell(105);
+$pdf->SetFont('Arial','',14);
+$pdf->Cell(13,10,'Date: ');
+$pdf->SetFont('Arial','B',14);
+$pdf->Cell(2,10,date('d M Y'));
+$pdf->Ln(12);
+$pdf->Cell(7);
+$pdf->Cell(32,10,'Payee Name: ');
+$pdf->SetFont('Arial','',12);
+$pdf->Cell(30,10, $customer_name);
+$pdf->Rect(17, 60, 179, 50, 'D');
+$pdf->Line(17, 70, 196, 70);
+$pdf->Rect(116, 110, 80, 10, 'D');
+$pdf->Rect(116, 120, 80, 10, 'D');
+$pdf->Line(160, 60, 160, 130);
+$pdf->SetFont('Arial','B',14);
+$pdf->Ln(13);
+$pdf->Cell(60);
+$pdf->Cell(30,10,'Description');
+$pdf->Cell(68);
+$pdf->Cell(30,10,'Amount');
+$pdf->Ln(15);
+$pdf->Cell(10);
+$pdf->SetFont('Arial','',12);
+$pdf->Cell(30,10, $order_title);
+$pdf->Cell(112);
+$pdf->Cell(30,10,$tax_excluded_amount . '/-');
+$pdf->Ln(35);
+$pdf->Cell(120);
+$pdf->Cell(30,10,'GST (18%)');
+$pdf->Cell(2);
+$pdf->Cell(30,10,$tax_amount . '/-');
+$pdf->Ln(10);
+$pdf->Cell(130);
+$pdf->Cell(20,10,'Total');
+$pdf->Cell(2);
+$pdf->Cell(30,10, $total_amount.'/-');
+$pdf->Ln(20);
+$pdf->SetFont('Arial','IB',12);
+$pdf->Cell(135);
+$pdf->Cell(30,10,'For Excel Men\'s Wear');
+$pdf->Ln(20);
+$pdf->Cell(135);
+$pdf->SetFont('Arial','I',12);
+$pdf->Cell(30,10,'Receiver\'s Signature');
+$op = $pdf->Output('F', 'receipts/excel-'.$order_id.'.pdf');
+
+// ob_end_clean();
+
+echo json_encode('receipts/'.$order_id.'.pdf');

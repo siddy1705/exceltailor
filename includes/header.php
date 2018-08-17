@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span></button>
                 <a class="navbar-brand" href="#"><span>Excel</span>Tailor</a>
-                <ul class="nav navbar-top-links navbar-right">
+                <!-- <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <em class="fa fa-envelope"></em><span class="label label-danger">15</span>
                     </a>
@@ -79,15 +79,15 @@
                             </a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         </div><!-- /.container-fluid -->
     </nav>
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <div class="profile-sidebar">
-            <div class="profile-userpic">
+            <!-- <div class="profile-userpic">
                 <img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
-            </div>
+            </div> -->
             <div class="profile-usertitle">
                 <div class="profile-usertitle-name"><?php echo $_SESSION['full_name']; ?></div>
                 <!-- <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div> -->
@@ -102,10 +102,10 @@
         </form> -->
         <ul class="nav menu">
             <li <?php echo (CURRENT_PAGE =="dashboard.php") ? 'class="active"' : '' ; ?>><a href="dashboard.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-            <li <?php echo (CURRENT_PAGE =="customers.php" || CURRENT_PAGE =="add_customer.php") ? 'class="active"' : '' ; ?>><a href="customers.php"><em class="fa fa-navicon">&nbsp;</em> Customers</a></li>
-            <li <?php echo (CURRENT_PAGE =="orders.php" || CURRENT_PAGE =="add_order.php") ? 'class="active"' : '' ; ?>><a href="orders.php"><em class="fa fa-navicon">&nbsp;</em> Orders</a></li>
+            <li <?php echo (CURRENT_PAGE =="customers.php" || CURRENT_PAGE =="add_customer.php") ? 'class="active"' : '' ; ?>><a href="customers.php"><em class="fa fa-users">&nbsp;</em> Customers</a></li>
+            <li <?php echo (CURRENT_PAGE =="orders.php" || CURRENT_PAGE =="add_order.php") ? 'class="active"' : '' ; ?>><a href="orders.php"><em class="fa fa-shopping-cart">&nbsp;</em> Orders</a></li>
             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
-            <li <?php echo (CURRENT_PAGE =="employees.php") ? 'class="active"' : '' ; ?>><a href="employees.php"><em class="fa fa-dashboard">&nbsp;</em> Employees</a></li>
+            <li <?php echo (CURRENT_PAGE =="employees.php") ? 'class="active"' : '' ; ?>><a href="employees.php"><em class="fa fa-user-circle-o">&nbsp;</em> Employees</a></li>
             <?php endif; ?>
             <li><a href="logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
         </ul>

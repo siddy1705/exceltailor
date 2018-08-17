@@ -119,7 +119,7 @@ include_once 'includes/header.php';
                 }
                 ?>>Desc</option>
             </select>
-            <input type="submit" value="Go" class="btn btn-primary">
+            <input type="submit" value="Go" class="btn btn-primary btn-lg">
 
         </form>
     </div>

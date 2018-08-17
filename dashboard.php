@@ -9,6 +9,14 @@ $db = getDbInstance();
 //Get Dashboard information
 $numCustomers = $db->getValue ("customers", "count(*)");
 
+$total_orders = $db->getValue("et_orders", "count(*)");
+
+$db->where('order_status', 'Completed');
+$completed_orders = $db->getValue ("et_orders", "count(*)");
+
+$db->where('order_status', 'Processing');
+$processing_orders = $db->getValue ("et_orders", "count(*)");
+
 
 
 include_once('includes/header.php');
@@ -24,32 +32,32 @@ include_once('includes/header.php');
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-teal panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
-							<div class="large">120</div>
-							<div class="text-muted">New Orders</div>
+							<div class="large"><?php echo $total_orders; ?></div>
+							<div class="text-muted">Total Orders</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
-							<div class="large">52</div>
-							<div class="text-muted">Comments</div>
+							<div class="large"><?php echo $processing_orders; ?></div>
+							<div class="text-muted">Procressing Orders</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-							<div class="large">24</div>
-							<div class="text-muted">New Users</div>
+							<div class="large"><?php echo $numCustomers; ?></div>
+							<div class="text-muted">Total Customers</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-red panel-widget ">
-						<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
-							<div class="large">25.2k</div>
-							<div class="text-muted">Page Views</div>
+						<div class="row no-padding"><em class="fa fa-xl fa-check-square-o color-red"></em>
+							<div class="large"><?php echo $completed_orders; ?></div>
+							<div class="text-muted">Completed Orders</div>
 						</div>
 					</div>
 				</div>

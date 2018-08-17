@@ -118,14 +118,54 @@ $(document).ready(function () {
   })
 
   $('#print-receipt').click(function(e){
+    
     var orderId = $('#order-id').val();
     var customerName = $('td#name').html();
     var orderTitle = $('#order-title').val();
     var totalAmount = $('#total-amount').val();
     var orderStatus = $('#order-status :selected').val();
 
-    if(orderStatus == 'Completed')
-    console.log(orderId +' '+ customerName + ' ' + orderTitle + ' ' + totalAmount + ' ' + orderStatus);
+    var fileExists = doesFileExist('receipts/excel-' + orderId + '.pdf');
+    console.log('file exists: ' + fileExists);
+    if(orderStatus == 'Completed') {
+      if(fileExists) {
+        var win = window.open('receipts/excel-' + orderId + '.pdf', '_blank');
+        win.focus();
+      }
+      else {
+        $.ajax({
+          type: "POST",
+          url: "print_receipt_ajax.php",
+          dataType: "json",  
+          data: {
+            orderId: orderId,
+            customerName: customerName,
+            orderTitle: orderTitle,
+            totalAmount: totalAmount
+          },
+          success: function(results) {
+            console.log(results);
+            var win = window.open(results, '_blank');
+            win.focus();
+          },
+          error: function(result, error) {
+            console.log(error);    
+          }
+        });
+      }
+    }
   })
 
 });
+
+function doesFileExist(urlToFile) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('HEAD', urlToFile, false);
+      xhr.send();
+       
+      if (xhr.status == "404") {
+          return false;
+      } else {
+          return true;
+      }
+  }
