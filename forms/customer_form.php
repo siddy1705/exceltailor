@@ -50,7 +50,7 @@
 
     <div class="form-group">
         <label for="phone">Phone</label>
-            <input name="phone" value="<?php echo $edit ? $customer['phone'] : ''; ?>" placeholder="987654321" class="form-control"  type="text" id="phone">
+            <input name="phone" value="<?php echo $edit ? $customer['phone'] : ''; ?>" placeholder="Mobile Number" class="form-control"  type="text" id="phone">
     </div> 
 
     <div class="form-group">

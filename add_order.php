@@ -6,7 +6,7 @@ require_once 'includes/auth_validate.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {  
   $customer_data = filter_input_array(INPUT_POST);
-  $cust_id = $customer_data['id'];
+  $cust_id = $customer_data['customer_id'];
   $phone_number = $customer_data['phone'];
   $cust_name = $customer_data['f_name']." ".$customer_data['l_name'];
   $cust_gender = $customer_data['gender'];

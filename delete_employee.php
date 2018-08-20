@@ -5,7 +5,7 @@ require_once './config/config.php';
 $del_id = filter_input(INPUT_POST, 'del_id');
  $db = getDbInstance();
 
-if($_SESSION['admin_type']!='super'){
+if($_SESSION['user_type']!='administrator'){
     header('HTTP/1.1 401 Unauthorized', true, 401);
     exit("401 Unauthorized");
 }
@@ -15,10 +15,10 @@ if($_SESSION['admin_type']!='super'){
 if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $db->where('id', $del_id);
-    $stat = $db->delete('admin_accounts');
+    $stat = $db->delete('et_users');
     if ($stat) {
         $_SESSION['info'] = "User deleted successfully!";
-        header('location: admin_users.php');
+        header('location: employees.php');
         exit;
     }
 }

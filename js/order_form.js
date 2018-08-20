@@ -61,7 +61,7 @@ $(document).ready(function () {
           phone:  $("#phone-number").val(),
         },
         success: function(results) {
-          //console.log(results);
+          console.log(results);
           $('#customer_not_selected').hide();
           if(results.length > 0) {
             $('#cust_info ').remove();
@@ -70,8 +70,8 @@ $(document).ready(function () {
             $('#customer-fetch').show();
             
             results.forEach(result => {
-              $('#customer-table').append('<tr class="customer-info-'+ result.id +'">'
-              + '<td><input type="radio" name="customer_id" value="'+ result.id +'" required></td>'
+              $('#customer-table').append('<tr class="customer-info-'+ result.customer_id +'">'
+              + '<td><input type="radio" name="customer_id" value="'+ result.customer_id +'" required></td>'
               + '<td>'+ result.f_name + ' ' + result.l_name +'</td>'
               + '<td>'+ result.gender +'</td>'
               + '<td>'+ result.phone +'</td>'

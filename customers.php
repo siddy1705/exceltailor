@@ -28,7 +28,7 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('id', 'f_name', 'l_name', 'gender', 'phone','created_at','updated_at');
+$select = array('customer_id', 'f_name', 'l_name', 'gender', 'phone','created_at','updated_at');
 
 //Start building query according to input parameters.
 // If search string
@@ -48,7 +48,7 @@ if ($order_by)
 $db->pageLimit = $pagelimit;
 
 //Get result of the query.
-$customers = $db->arraybuilder()->paginate("customers", $page, $select);
+$customers = $db->arraybuilder()->paginate("et_customers", $page, $select);
 $total_pages = $db->totalPages;
 
 // get columns for order filter
@@ -130,13 +130,13 @@ include_once 'includes/header.php';
         <tbody>
             <?php foreach ($customers as $row) : ?>
                 <tr>
-	                <!-- <td><?php echo $row['id'] ?></td> -->
+	                <!-- <td><?php echo $row['customer_id'] ?></td> -->
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
 	                <td><?php echo htmlspecialchars($row['gender']) ?></td>
 	                <td><?php echo htmlspecialchars($row['phone']) ?> </td>
 	                <td>
                     <form action="add_order.php" method="POST" style="display:inline-block;">
-                      <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+                      <input type="hidden" name="customer_id" value="<?php echo $row['customer_id']; ?>" />
                       <input type="hidden" name="f_name" value="<?php echo $row['f_name']; ?>" />
                       <input type="hidden" name="l_name" value="<?php echo $row['l_name']; ?>" />
                       <input type="hidden" name="gender" value="<?php echo $row['gender']; ?>" />
@@ -144,14 +144,14 @@ include_once 'includes/header.php';
                       <button type="submit" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></button>
                     </form>
                     
-                    <a href="edit_customer.php?customer_id=<?php echo $row['id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="edit_customer.php?customer_id=<?php echo $row['customer_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 
-                    <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['customer_id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>
                 </tr>
 
 						<!-- Delete Confirmation Modal-->
-					 <div class="modal fade" id="confirm-delete-<?php echo $row['id'] ?>" role="dialog">
+					 <div class="modal fade" id="confirm-delete-<?php echo $row['customer_id'] ?>" role="dialog">
 					    <div class="modal-dialog">
 					      <form action="delete_customer.php" method="POST">
 					      <!-- Modal content-->
@@ -162,7 +162,7 @@ include_once 'includes/header.php';
 						        </div>
 						        <div class="modal-body">
 						      
-						        		<input type="hidden" name="del_id" id = "del_id" value="<?php echo $row['id'] ?>">
+						        		<input type="hidden" name="del_id" id = "del_id" value="<?php echo $row['customer_id'] ?>">
 						        	
 						          <p>Are you sure you want to delete this customer?</p>
 						        </div>

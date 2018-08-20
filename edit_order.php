@@ -58,9 +58,9 @@ if($edit)
 
     //var_dump($measurments); die;
 
-    $db->where('id', $order['customer_id']);
-    $customer_data = $db->getOne("customers");
-    $cust_id = $customer_data['id'];
+    $db->where('customer_id', $order['customer_id']);
+    $customer_data = $db->getOne("et_customers");
+    $cust_id = $customer_data['customer_id'];
     $phone_number = $customer_data['phone'];
     $cust_name = $customer_data['f_name']." ".$customer_data['l_name'];
     $cust_gender = $customer_data['gender'];

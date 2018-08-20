@@ -9,11 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     //Mass Insert Data. Keep "name" attribute in html form same as column name in mysql table.
     $data_to_store = filter_input_array(INPUT_POST);
-    //Insert timestamp
-    $data_to_store['created_at'] = date('Y-m-d H:i:s');
+    //var_dump($data_to_store);
     $db = getDbInstance();
-    $last_id = $db->insert ('customers', $data_to_store);
-    
+    $last_id = $db->insert ('et_customers', $data_to_store);
+    //var_dump($last_id); die;
     if($last_id)
     {
     	$_SESSION['success'] = "Customer added successfully!";
@@ -41,20 +40,20 @@ require_once 'includes/header.php';
 
 
 <script type="text/javascript">
-$(document).ready(function(){
-   $("#customer_form").validate({
-       rules: {
-            f_name: {
-                required: true,
-                minlength: 3
-            },
-            l_name: {
-                required: true,
-                minlength: 3
-            },   
-        }
-    });
-});
+// $(document).ready(function(){
+//    $("#customer_form").validate({
+//        rules: {
+//             f_name: {
+//                 required: true,
+//                 minlength: 3
+//             },
+//             l_name: {
+//                 required: true,
+//                 minlength: 3
+//             },   
+//         }
+//     });
+// });
 </script>
 
 <?php include_once 'includes/footer.php'; ?>

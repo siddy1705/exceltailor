@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
     $data_to_update['updated_at'] = date('Y-m-d H:i:s');
     $db = getDbInstance();
-    $db->where('id',$customer_id);
-    $stat = $db->update('customers', $data_to_update);
+    $db->where('customer_id',$customer_id);
+    $stat = $db->update('et_customers', $data_to_update);
 
     if($stat)
     {
@@ -38,9 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 //If edit variable is set, we are performing the update operation.
 if($edit)
 {
-    $db->where('id', $customer_id);
+    $db->where('customer_id', $customer_id);
     //Get data to pre-populate the form.
-    $customer = $db->getOne("customers");
+    $customer = $db->getOne("et_customers");
 }
 ?>
 

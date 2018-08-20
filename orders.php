@@ -28,7 +28,7 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.order_type', 'o.order_title', 'o.delivery_date', 'e.full_name', 'o.created_at', 'o.order_status');
+$select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.order_type', 'o.order_title', 'o.delivery_date', 'e.full_name', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid');
 
 //Start building query according to input parameters.
 // If search string
@@ -48,7 +48,7 @@ if ($order_by)
 $db->pageLimit = $pagelimit;
 
 //Get result of the query.
-$db->join("customers c", "o.customer_id=c.id", "LEFT");
+$db->join("et_customers c", "o.customer_id=c.customer_id", "LEFT");
 $db->join("et_users e", "o.assigned_to=e.id", "LEFT");
 
 if($_SESSION['user_type'] == 'employee'){
@@ -138,11 +138,14 @@ include_once 'includes/header.php';
                 <th>Delivery Date </th>
                 <th>Assigned To </th>
                 <th>Order Status </th>
+                <th>Pending Amount</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($orders as $row) : ?>
+            <?php foreach ($orders as $row) : 
+                $pending_amount = $row['total_amount'] - $row['amount_paid'];
+                ?>
                 <tr>
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
 	                <td><?php echo htmlspecialchars($row['order_type']) ?></td>
@@ -150,6 +153,7 @@ include_once 'includes/header.php';
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
 	                <td><?php echo htmlspecialchars($row['full_name']) ?> </td>
                     <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
+                    <td><?php echo $pending_amount; ?> </td>
 	                <td>
                     <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 

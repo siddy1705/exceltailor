@@ -9,7 +9,7 @@ $db = getDbInstance();
 $db->where('phone', '%' . $phone . '%', 'like');
 $db->orwhere('f_name', '%' . $phone . '%', 'like');
 $db->orwhere('l_name', '%' . $phone . '%', 'like');
-$customer_data = $db->get ("customers");
+$customer_data = $db->get ("et_customers");
 ob_end_clean();
 
 echo json_encode($customer_data);
