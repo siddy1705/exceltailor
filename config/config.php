@@ -23,7 +23,6 @@ require_once BASE_PATH.'/lib/MysqliDb.php';
 define('DB_HOST', "localhost");
 define('DB_USER', "phpmyadmin");
 define('DB_PASSWORD', "7u8i9o0p");
-//define('DB_NAME', "corephpadmin");
 define('DB_NAME', "exceltailor");
 
 // define('DB_HOST', "localhost");
