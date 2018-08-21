@@ -667,7 +667,7 @@ cooperation with contractors who are performing in alignment with our code of co
 				<div class="agile-contact-left">
 					<div class="contact-form">
 						<h3 class="white-w3ls subheading-w3l">Contact Form</h3>
-						<form action="#" method="post">
+						<form action="" method="post" id="contact-form">
 								<input type="text" name="Name" placeholder="Name" required="">
 								<input type="email" name="Email" placeholder="Email" required=""> 
 								<input type="text" name="Subject" placeholder="Subject" required="">
@@ -773,6 +773,35 @@ cooperation with contractors who are performing in alignment with our code of co
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+</script>
+<script>
+	$(document).ready(function () {
+		$("form#contact-form").submit(function(e){
+			e.preventDefault();
+			var name = $('input[name=Name]').val();
+			var email = $('input[name=Email]').val();
+			var subject = $('input[name=Subject]').val();
+			var message = $('textarea[name=Message]').val();
+			console.log('name: ' + name + '  email: ' + email + '  subject: ' + subject + '  message: ' + message);
+			$.ajax({
+				type: "POST",
+				url: "send_email_ajax.php",
+				dataType: "json",  
+				data: {
+					name: name,
+					email: email,
+					subject: subject,
+					message: message
+				},
+				success: function(results) {
+					console.log(results);
+				},
+				error: function(result) {
+				  console.log(result);
+				}
+			});
+		})
+	})
 </script>
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
