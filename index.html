@@ -798,7 +798,7 @@ cooperation with contractors who are performing in alignment with our code of co
 				success: function(results) {
 					console.log(results);
 					$("form#contact-form").find("input[type=text], input[type=email], textarea").val("");
-					if(!results)
+					if(results)
 					$('.sent-success').show();
 					else
 					$('.sent-failure').show();

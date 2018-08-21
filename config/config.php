@@ -20,9 +20,15 @@ require_once BASE_PATH.'/lib/MysqliDb.php';
 // define('DB_PASSWORD', "");
 // define('DB_NAME', "corephpadmin");
 
+// define('DB_HOST', "localhost");
+// define('DB_USER', "phpmyadmin");
+// define('DB_PASSWORD', "7u8i9o0p");
+// define('DB_NAME', "exceltailor");
+
+// Live
 define('DB_HOST', "localhost");
-define('DB_USER', "phpmyadmin");
-define('DB_PASSWORD', "7u8i9o0p");
+define('DB_USER', "exceltailor_user");
+define('DB_PASSWORD', "excelpassword");
 define('DB_NAME', "exceltailor");
 
 // define('DB_HOST', "localhost");

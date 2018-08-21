@@ -10,14 +10,14 @@ $date_now = date('d-m-Y');
 $db->where("created_at", $date_six_month, '>=');
 $results = $db->get('et_orders');
 
-//var_dump($results);
 
 foreach($results as $result) {
     $created_month = date('F', strtotime($result['created_at']));
+    $month_array[] = $created_month;
 }
 
+foreach ($month_array as $month => $value) {
+    $month_array_js[$month] = $value;
+}
 
-/* for ($i = 0; $i < 6; $i++) {
-    echo date(' F Y', strtotime("-$i month"));  
-  }
-  echo date('01-m-Y',strtotime("-5 month")); */
+echo json_encode($month_array_js);
