@@ -1101,6 +1101,20 @@ ul.w3_address li i ,ul.w3_address li span{
 .white-w3ls{
 	color:#fff!important;
 }
+
+.contact .sent-success {
+	font-size: 18px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+.contact .sent-failure {
+	font-size: 18px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: red;
+}
 /*-- //input-effect --*/
 .contact input[type="submit"] {
     outline: none;

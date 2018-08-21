@@ -668,11 +668,13 @@ cooperation with contractors who are performing in alignment with our code of co
 					<div class="contact-form">
 						<h3 class="white-w3ls subheading-w3l">Contact Form</h3>
 						<form action="" method="post" id="contact-form">
-								<input type="text" name="Name" placeholder="Name" required="">
-								<input type="email" name="Email" placeholder="Email" required=""> 
-								<input type="text" name="Subject" placeholder="Subject" required="">
-								<textarea name="Message" placeholder="Message" required=""></textarea>
+							<input type="text" name="Name" placeholder="Name" required="">
+							<input type="email" name="Email" placeholder="Email" required=""> 
+							<input type="text" name="Subject" placeholder="Subject" required="">
+							<textarea name="Message" placeholder="Message" required=""></textarea>
 							<input type="submit" value="SEND">
+							<span class="sent-success" style="display: none">Message Sent Sucessfully!</span>
+							<span class="sent-failure" style="display: none">Something Went Wrong! Please Try Again.</span>
 						</form>
 					</div>
 					<div class="address-grid">
@@ -795,6 +797,11 @@ cooperation with contractors who are performing in alignment with our code of co
 				},
 				success: function(results) {
 					console.log(results);
+					$("form#contact-form").find("input[type=text], input[type=email], textarea").val("");
+					if(!results)
+					$('.sent-success').show();
+					else
+					$('.sent-failure').show();
 				},
 				error: function(result) {
 				  console.log(result);
