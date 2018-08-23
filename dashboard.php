@@ -31,38 +31,57 @@ include_once('includes/header.php');
 			<div class="row">
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="total"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
 							<div class="large"><?php echo $total_orders; ?></div>
-							<div class="text-muted">Total Orders</div>
+							<div class="text-muted">Total Orders</div></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-blue panel-widget border-right">
-						<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="processing"><em class="fa fa-xl fa-comments color-orange"></em>
 							<div class="large"><?php echo $processing_orders; ?></div>
-							<div class="text-muted">Procressing Orders</div>
+							<div class="text-muted">Procressing Orders</div></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-orange panel-widget border-right">
-						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-							<div class="large"><?php echo $numCustomers; ?></div>
-							<div class="text-muted">Total Customers</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-red panel-widget ">
-						<div class="row no-padding"><em class="fa fa-xl fa-check-square-o color-red"></em>
+					<div class="panel panel-red panel-widget border-right">
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="completed"><em class="fa fa-xl fa-check-square-o color-red"></em>
 							<div class="large"><?php echo $completed_orders; ?></div>
-							<div class="text-muted">Completed Orders</div>
+							<div class="text-muted">Completed Orders</div></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-orange panel-widget ">
+						<div class="row no-padding"><a href="customers.php" class="dashboard-stats-customers"><em class="fa fa-xl fa-users color-teal"></em>
+							<div class="large"><?php echo $numCustomers; ?></div>
+							<div class="text-muted">Total Customers</div></a>
 						</div>
 					</div>
 				</div>
 			</div><!--/.row-->
+
+			
 		</div>
+		<div class="row" id="orders-bar-graph" style="display:none;">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span id="order-graph-heading" class="order-graph-heading">Orders Graph</span>
+						<span id="orders-bar-graph-close" class="pull-right graph-panel-toggle panel-button-tab-left"><em class="fa fa-times"></em></span>
+					</div>
+					<div class="panel-body">
+						<div class="canvas-wrapper" id="orders-details-barchart">
+							<canvas class="main-chart" id="bar-chart" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+		
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">

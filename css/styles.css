@@ -406,6 +406,14 @@ a.label:hover, a.label:focus {
   border-bottom: 1px solid #e9ecf2;
   color: #444444; }
 
+.panel-default .panel-heading .order-graph-heading {
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.025em;
+  height: 60px;
+  line-height: 38px;
+}
+
 .panel-footer {
   background: #fff;
   border-top: 1px solid #e9ecf2; }
@@ -461,11 +469,11 @@ a.label:hover, a.label:focus {
   width: 40px;
   padding: 2px 0 0 0; }
 
-.panel-settings:hover, .panel-toggle:hover, .panel-settings .dropdown a.dropdown-toggle:hover, .panel-settings:active, .panel-toggle:active, .panel-settings .dropdown a.dropdown-toggle:active, .panel-settings:focus, .panel-toggle:focus, .panel-settings .dropdown a.dropdown-toggle:focus {
+.panel-settings:hover, .panel-toggle:hover, .panel-settings .dropdown a.dropdown-toggle:hover, .panel-settings:active, .panel-toggle:active, .panel-settings .dropdown a.dropdown-toggle:active, .panel-settings:focus, .panel-toggle:focus, .panel-settings .dropdown a.dropdown-toggle:focus, .graph-panel-toggle:hover, .graph-panel-toggle:focus, .graph-panel-toggle:active {
   background: #f1f4f7;
   color: #444444; }
 
-.panel-settings, .panel-toggle {
+.panel-settings, .panel-toggle, .graph-panel-toggle {
   display: inline-block;
   margin: -1px -5px 0 15px !important;
   border-radius: 4px;
@@ -474,6 +482,8 @@ a.label:hover, a.label:focus {
   color: #7c7c7c;
   background: #fff;
   width: 42px; }
+
+.graph-panel-toggle { cursor: pointer; }
 
 .panel-settings {
   width: 42px;
@@ -1034,4 +1044,8 @@ p.back-link {
 
 .order-buttons {
   margin-top: 24px;
+}
+
+a.dashboard-stats:hover, a.dashboard-stats:focus, a.dashboard-stats-customers:hover, a.dashboard-stats-customers:focus {
+  text-decoration: none;
 }

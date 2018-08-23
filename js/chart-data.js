@@ -4,16 +4,12 @@ $(document).ready(function() {
 		url : "chart_data_ajax.php",
 		type : "GET",
 		success : function(data){
-            /* ,str = "";
-            data.forEach(function(i) { 
-                obj[i] = (obj[i]||0) + 1;
-            }); */
+            
             var obj = {};
             var data = JSON.parse(data);
             data.forEach(element => {
                 obj[element] = (obj[element]||0) + 1;
             });
-            //console.log(obj);
             
             var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
