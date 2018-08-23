@@ -79,34 +79,17 @@
 
             <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
                 <thead>
-                <tr>
-                    <th rowspan="2">Select</th>
-                    <th rowspan="2">Name</th>
-                    <th colspan="8">Upper Body</th>
-                    <th colspan="7">Lower Body</th>
-                </tr>
-                <tr>
-                    <th>Length</th>
-                    <th>Chest</th>
-                    <th>Stomach</th>
-                    <th>Hip</th>
-                    <th>Shoulders</th>
-                    <th>Sleeves</th>
-                    <th>Sleeve Round</th>
-                    <th>Neck</th>
-                    <th>Length</th>
-                    <th>Waist</th>
-                    <th>Hip</th>
-                    <th>Thigh</th>
-                    <th>Knee</th>
-                    <th>Bottom</th>
-                    <th>Inside</th>
-                </tr>
+                    <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th colspan="6">Measurment</th>
+                    </tr>
                 </thead>
                 <tbody id="measurment-table">
                     
                 </tbody>
             </table>
+                <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
         </div>
@@ -136,6 +119,7 @@
                     <label class="control-label">Order Description</label>
                     <textarea name="order_description" placeholder="Enter Order Description" class="form-control" id="address" rows="5"></textarea>
                 </div>
+                <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
         </div>
@@ -167,6 +151,7 @@
                     <label class="control-label">Amount Paid</label>
                     <input name="amount_paid" type="number" required="required" class="form-control" placeholder="Enter Amount Paid" />
                 </div>
+                <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
                 <button class="btn btn-success pull-right" type="submit">Save Order!</button>
             </div>
         </div>

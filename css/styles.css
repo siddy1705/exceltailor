@@ -1049,3 +1049,11 @@ p.back-link {
 a.dashboard-stats:hover, a.dashboard-stats:focus, a.dashboard-stats-customers:hover, a.dashboard-stats-customers:focus {
   text-decoration: none;
 }
+
+table, th {
+  text-align: center;
+}
+
+td {
+  vertical-align: middle !important;
+}

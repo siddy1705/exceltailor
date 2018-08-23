@@ -41,39 +41,29 @@
             </div>
             
             <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
-            <thead>
-                <tr>
-                    <th rowspan="2">Select</th>
-                    <th rowspan="2">Name</th>
-                    <th colspan="8">Upper Body</th>
-                    <th colspan="7">Lower Body</th>
-                </tr>
-                <tr>
-                    <th>Length</th>
-                    <th>Chest</th>
-                    <th>Stomach</th>
-                    <th>Hip</th>
-                    <th>Shoulders</th>
-                    <th>Sleeves</th>
-                    <th>Sleeve Round</th>
-                    <th>Neck</th>
-                    <th>Length</th>
-                    <th>Waist</th>
-                    <th>Hip</th>
-                    <th>Thigh</th>
-                    <th>Knee</th>
-                    <th>Bottom</th>
-                    <th>Inside</th>
-                </tr>
+                <thead>
+                    <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th colspan="6">Measurment</th>
+                    </tr>
                 </thead>
                 <tbody id="measurment-table">
                    <?php 
                     if($edit){
                         foreach($measurments as $measurment) {
                             $checked = ($order['measurment_id'] == $measurment['measurment_id']) ? 'checked' : '';
+
                             echo '<tr class="measurment-info-'. $measurment['measurment_id'] .'">'
                             . '<td><input type="radio" name="measurment_id" value="'. $measurment['measurment_id'] .'"'.$checked.'></td>'
                             . '<td>'. $measurment['measurment_name'] .'</td>'
+                            . '<td colspan="8">'
+                            . '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
+                            . '<tr><th colspan="8">Upper Body</th></tr>'
+                            . '<tr><th>Length</th><th>Chest</th><th>Stomach</th><th>Hip</th>'
+                            . '<th>Shoulders</th><th>Sleeves</th><th>Sleeve Round</th><th>Neck</th></tr>'
+                            . '</thead>'
+                            . '<tbody><tr>'
                             . '<td>'. $measurment['ub_length'] .'</td>'
                             . '<td>'. $measurment['ub_chest'] .'</td>'
                             . '<td>'. $measurment['ub_stomach'] .'</td>'
@@ -82,6 +72,13 @@
                             . '<td>'. $measurment['ub_sleeves'] .'</td>'
                             . '<td>'. $measurment['ub_sleeve_round'] .'</td>'
                             . '<td>'. $measurment['ub_neck'] .'</td>'
+                            . '</tr></tbody></table>'
+                            . '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
+                            . '<tr><th colspan="8">Lower Body</th></tr>'
+                            . '<tr><th>Length</th><th>Waist</th><th>Hip</th><th>Thigh</th>'
+                            . '<th>Knee</th><th>Bottom</th><th>Inside</th>'
+                            . '</thead>'
+                            . '<tbody><tr>'
                             . '<td>'. $measurment['lb_length'] .'</td>'
                             . '<td>'. $measurment['lb_waist'] .'</td>'
                             . '<td>'. $measurment['lb_hip'] .'</td>'
@@ -89,12 +86,14 @@
                             . '<td>'. $measurment['lb_knee'] .'</td>'
                             . '<td>'. $measurment['lb_bottom'] .'</td>'
                             . '<td>'. $measurment['lb_inside'] .'</td>'
-                            . '</tr>';
+                            . '</tr></tbody></table>'
+                            . '</td></tr>';
                         }
                     }
                    ?>
                 </tbody>
             </table>
+                <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
         </div>
@@ -124,6 +123,7 @@
                     <label class="control-label">Order Description</label>
                     <textarea name="order_description" placeholder="Enter Order Description" class="form-control" id="address" rows="5"><?php echo $order['order_description']; ?></textarea>
                 </div>
+                <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
             </div>
         </div>
@@ -170,6 +170,7 @@
                 <div class="form-group col-lg-3 col-sm-3 col-sx-3 order-buttons">
                 <a href="#" class="btn btn-block btn-lg btn-info" id="print-receipt"><span class="glyphicon glyphicon-print"></span> Print Receipt</a>    
                 </div>
+                <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
                 <button class="btn btn-success pull-right" type="submit">Save Order!</button>
             </div>
         </div>

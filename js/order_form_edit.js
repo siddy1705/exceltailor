@@ -3,6 +3,7 @@ $(document).ready(function () {
   var navListItems = $('div.setup-panel div a'),
       allWells = $('.setup-content'),
       allNextBtn = $('.nextBtn');
+      allPrevBtn = $('.prevBtn');
 
   allWells.hide();
 
@@ -39,6 +40,16 @@ $(document).ready(function () {
       else $('#customer_not_selected').show();
   });
 
+  allPrevBtn.click(function () {
+    var curStep = $(this).closest(".setup-content"),
+        curStepBtn = curStep.attr("id"),
+        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a"),
+        curInputs = curStep.find("input[type='text'],input[type='radio']"),
+        isValid = true;
+
+        nextStepWizard.removeAttr('disabled').trigger('click');
+  });
+
   $('div.setup-panel div a.btn-success').trigger('click');
 
   $('#add_new_customer').hide();
@@ -72,8 +83,15 @@ $(document).ready(function () {
             //console.log(results);
             results.forEach(result => {
               $('#measurment-table').append('<tr class="measurment-info-'+ result.measurment_id +'">'
-              + '<td><input type="radio" name="measurment_id" value="'+ result.measurment_id +'"></td>'
-              + '<td>'+ result.measurment_name +'</td>'
+              + '<td valign="center"><input type="radio" name="measurment_id" value="'+ result.measurment_id +'" required></td>'
+              + '<td valign="center">'+ result.measurment_name +'</td>'
+              + '<td colspan="8">'
+              + '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
+              + '<tr><th colspan="8">Upper Body</th></tr>'
+              + '<tr><th>Length</th><th>Chest</th><th>Stomach</th><th>Hip</th>'
+              + '<th>Shoulders</th><th>Sleeves</th><th>Sleeve Round</th><th>Neck</th></tr>'
+              + '</thead>'
+              + '<tbody><tr>'
               + '<td>'+ result.ub_length +'</td>'
               + '<td>'+ result.ub_chest +'</td>'
               + '<td>'+ result.ub_stomach +'</td>'
@@ -82,6 +100,13 @@ $(document).ready(function () {
               + '<td>'+ result.ub_sleeves +'</td>'
               + '<td>'+ result.ub_sleeve_round +'</td>'
               + '<td>'+ result.ub_neck +'</td>'
+              + '</tr></tbody></table>'
+              + '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
+              + '<tr><th colspan="8">Lower Body</th></tr>'
+              + '<tr><th>Length</th><th>Waist</th><th>Hip</th><th>Thigh</th>'
+              + '<th>Knee</th><th>Bottom</th><th>Inside</th>'
+              + '</thead>'
+              + '<tbody><tr>'
               + '<td>'+ result.lb_length +'</td>'
               + '<td>'+ result.lb_waist +'</td>'
               + '<td>'+ result.lb_hip +'</td>'
@@ -89,7 +114,8 @@ $(document).ready(function () {
               + '<td>'+ result.lb_knee +'</td>'
               + '<td>'+ result.lb_bottom +'</td>'
               + '<td>'+ result.lb_inside +'</td>'
-              + '</tr>');
+              + '</tr></tbody></table>'
+              + '</td></tr>')
             });     
           }
         },
