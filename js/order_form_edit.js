@@ -144,7 +144,7 @@ $(document).ready(function () {
   })
 
   $('#print-receipt').click(function(e){
-    
+    e.preventDefault();
     var orderId = $('#order-id').val();
     var customerName = $('td#name').html();
     var orderTitle = $('#order-title').val();
@@ -181,6 +181,8 @@ $(document).ready(function () {
       }
     }
   })
+
+  $('#send-sms').click(function(e){e.preventDefault();})
 
 });
 

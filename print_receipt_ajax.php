@@ -87,4 +87,4 @@ $op = $pdf->Output('F', 'receipts/excel-'.$order_id.'.pdf');
 
 // ob_end_clean();
 
-echo json_encode('receipts/'.$order_id.'.pdf');
+echo json_encode('receipts/excel-'.$order_id.'.pdf');

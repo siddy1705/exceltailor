@@ -165,7 +165,7 @@
                     </select>
                 </div>
                 <div class="form-group col-lg-3 col-sm-3 col-sx-3 order-buttons">
-                <a href="#" class="btn btn-block btn-lg btn-info"><span class="glyphicon glyphicon-send"></span> Send SMS</a>    
+                <a href="#" class="btn btn-block btn-lg btn-info" id="send-sms"><span class="glyphicon glyphicon-send"></span> Send SMS</a>    
                 </div>
                 <div class="form-group col-lg-3 col-sm-3 col-sx-3 order-buttons">
                 <a href="#" class="btn btn-block btn-lg btn-info" id="print-receipt"><span class="glyphicon glyphicon-print"></span> Print Receipt</a>    
