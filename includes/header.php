@@ -95,15 +95,13 @@
             <div class="clear"></div>
         </div>
         <div class="divider"></div>
-        <!-- <form role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </form> -->
         <ul class="nav menu">
             <li <?php echo (CURRENT_PAGE =="dashboard.php") ? 'class="active"' : '' ; ?>><a href="dashboard.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
             <li <?php echo (CURRENT_PAGE =="customers.php" || CURRENT_PAGE =="add_customer.php") ? 'class="active"' : '' ; ?>><a href="customers.php"><em class="fa fa-users">&nbsp;</em> Customers</a></li>
             <li <?php echo (CURRENT_PAGE =="orders.php" || CURRENT_PAGE =="add_order.php") ? 'class="active"' : '' ; ?>><a href="orders.php"><em class="fa fa-shopping-cart">&nbsp;</em> Orders</a></li>
+            <?php endif; ?>
+            <li <?php echo (CURRENT_PAGE =="items.php") ? 'class="active"' : '' ; ?>><a href="items.php"><em class="fa fa-check-square">&nbsp;</em> Items</a></li>
             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
             <li <?php echo (CURRENT_PAGE =="employees.php") ? 'class="active"' : '' ; ?>><a href="employees.php"><em class="fa fa-user-circle-o">&nbsp;</em> Employees</a></li>
             <?php endif; ?>

@@ -3,6 +3,11 @@ session_start();
 require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
+if($_SESSION['user_type']!='administrator'){
+    header('HTTP/1.1 401 Unauthorized', true, 401);
+    exit("401 Unauthorized");
+}
+
 //Get Input data from query string
 $search_string = filter_input(INPUT_GET, 'search_string');
 $filter_col = filter_input(INPUT_GET, 'filter_col');
@@ -28,7 +33,7 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.order_type', 'o.order_title', 'o.delivery_date', 'e.full_name', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid');
+$select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid');
 
 //Start building query according to input parameters.
 // If search string
@@ -49,13 +54,6 @@ $db->pageLimit = $pagelimit;
 
 //Get result of the query.
 $db->join("et_customers c", "o.customer_id=c.customer_id", "LEFT");
-$db->join("et_users e", "o.assigned_to=e.id", "LEFT");
-
-if($_SESSION['user_type'] == 'employee'){
-    $user_id = $_SESSION['user_id'];
-    //echo $user_id; die;
-    $db->where("o.assigned_to", $user_id);
-}
 
 $orders = $db->arraybuilder()->paginate("et_orders o", $page, $select);
 $total_pages = $db->totalPages;
@@ -133,10 +131,10 @@ include_once 'includes/header.php';
             <tr>
                 <!-- <th class="header">#</th> -->
                 <th>Customer Name</th>
-                <th>Order Type</th>
-                <th>Order Title </th>
+                <!-- <th>Order Type</th>
+                <th>Order Title </th> -->
                 <th>Delivery Date </th>
-                <th>Assigned To </th>
+                <!-- <th>Assigned To </th> -->
                 <th>Order Status </th>
                 <th>Pending Amount</th>
                 <th>Actions</th>
@@ -148,13 +146,14 @@ include_once 'includes/header.php';
                 ?>
                 <tr>
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
-	                <td><?php echo htmlspecialchars($row['order_type']) ?></td>
-	                <td><?php echo htmlspecialchars($row['order_title']) ?> </td>
+	                <!-- <td><?php //echo htmlspecialchars($row['order_type']) ?></td>
+	                <td><?php //echo htmlspecialchars($row['order_title']) ?> </td> -->
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
-	                <td><?php echo htmlspecialchars($row['full_name']) ?> </td>
+	                <!-- <td><?php //echo htmlspecialchars($row['full_name']) ?> </td> -->
                     <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
                     <td><?php echo $pending_amount; ?> </td>
 	                <td>
+                    <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-eye-open"></span></a>
                     <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 
                     <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>

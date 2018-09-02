@@ -100,7 +100,10 @@ $(document).ready(function () {
               + '<td>'+ result.ub_sleeves +'</td>'
               + '<td>'+ result.ub_sleeve_round +'</td>'
               + '<td>'+ result.ub_neck +'</td>'
-              + '</tr></tbody></table>'
+              + '</tr>'
+              + '<tr><th colspan="8">Comments</th></tr>'
+              + '<tr><td colspan="8">' + result.ub_comments + '</td></tr>'
+              + '</tbody></table>'
               + '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
               + '<tr><th colspan="8">Lower Body</th></tr>'
               + '<tr><th>Length</th><th>Waist</th><th>Hip</th><th>Thigh</th>'
@@ -114,7 +117,10 @@ $(document).ready(function () {
               + '<td>'+ result.lb_knee +'</td>'
               + '<td>'+ result.lb_bottom +'</td>'
               + '<td>'+ result.lb_inside +'</td>'
-              + '</tr></tbody></table>'
+              + '</tr>'
+              + '<tr><th colspan="8">Comments</th></tr>'
+              + '<tr><td colspan="8">' + result.lb_comments + '</td></tr>'
+              + '</tbody></table>'
               + '</td></tr>')
             });     
           }
@@ -180,6 +186,101 @@ $(document).ready(function () {
         });
       }
     }
+  })
+
+  $('.delete-item-db').click(function(e){
+    e.preventDefault();
+    var itemId = $(this).attr("id");
+    var deletedAmount = $(this).attr("amount");
+    $.ajax({
+      type: "POST",
+      url: "delete_item_ajax.php",
+      dataType: "json",  
+      data: {
+        itemId: itemId,
+      },
+      success: function(results) {
+        console.log(results);
+        $('tr#'+ itemId).remove();
+        prevTotalAmount = prevTotalAmount - deletedAmount;
+      },
+      error: function(error) {
+        console.log(error);    
+      }
+    });
+  })
+
+  var itemArr = [];
+  var amountArr = [];
+  var deleteMarker = 0;
+  var prevTotalAmount = parseInt($('#total-amount').val());
+  //console.log(totalAmount);
+  
+
+  $('#save-item').click(function(){
+    console.log("clicked");
+    var tempItemArr = [];
+
+    tempItemArr.push($('#order-type').val());
+    tempItemArr.push($('#item-quantity').val());
+    tempItemArr.push($('#assigned-to').val());
+    tempItemArr.push($('#item-rate').val());
+    tempItemArr.push($('#item-title').val());
+    tempItemArr.push($('#item-desc').val());
+    tempItemArr.push($('#item-rate').val() * $('#item-quantity').val())
+    amountArr.push($('#item-rate').val() * $('#item-quantity').val())
+
+    itemArr.push(tempItemArr);
+
+    $('#item-list').append('<tr id="' + deleteMarker + '">'
+    + '<td>' + $('#order-type').val() + '</td>'
+    + '<td>' + $('#item-quantity').val() + '</td>'
+    + '<td>' + $('#assigned-to').val() + '</td>'
+    + '<td>' + $('#item-title').val() + '</td>'
+    + '<td>' + $('#item-rate').val() * $('#item-quantity').val() + '</td>'
+    + '<td><button class="btn btn-danger delete-item" type="button" id="' + deleteMarker + '"><span class="glyphicon glyphicon-remove"></span></button></td>'
+    + '</tr>');
+
+    deleteMarker++;
+
+   $('.add-item-panel input[type=text], .add-item-panel input[type=number], .add-item-panel textarea').val("");
+
+   console.log(itemArr);
+    
+  })
+
+  $('#item-list').on("click", ".delete-item", function(e){
+    // console.log("delete clicked")
+    e.preventDefault();
+    var id = $(this).attr("id");
+    delete itemArr[id];
+    delete amountArr[id];
+    console.log(amountArr);
+    $('tr#' + id).remove();
+  });
+
+  $('.tempBtn').click(function(){
+    console.log(amountArr);
+    var totalAmount = 0;
+    var itemArrNew = itemArr.filter(function(v){return v!== undefined});
+    var amountArrNew = amountArr.filter(function(v){return v!== undefined});
+    amountArrNew.forEach(function(amount){
+      totalAmount = parseInt(totalAmount) + parseInt(amount); 
+    })
+    totalAmount = totalAmount + prevTotalAmount;
+    console.log("total amt:" + totalAmount )
+    $('#total-amount').val(totalAmount);
+    $.ajax({
+      type: "POST",
+      url: "save_item_ajax.php",
+      dataType: "json",  
+      data: {
+        itemArr: itemArrNew
+      },
+      success: function(results) {
+        console.log(results);
+      }
+    })
   })
 
   $('#send-sms').click(function(e){e.preventDefault();})

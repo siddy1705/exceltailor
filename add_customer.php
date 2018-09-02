@@ -3,6 +3,10 @@ session_start();
 require_once './config/config.php';
 require_once './includes/auth_validate.php';
 
+if($_SESSION['user_type']!='administrator'){
+    header('HTTP/1.1 401 Unauthorized', true, 401);
+    exit("401 Unauthorized");
+}
 
 //serve POST method, After successful insert, redirect to customers.php page.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
@@ -40,20 +44,20 @@ require_once 'includes/header.php';
 
 
 <script type="text/javascript">
-// $(document).ready(function(){
-//    $("#customer_form").validate({
-//        rules: {
-//             f_name: {
-//                 required: true,
-//                 minlength: 3
-//             },
-//             l_name: {
-//                 required: true,
-//                 minlength: 3
-//             },   
-//         }
-//     });
-// });
+$(document).ready(function(){
+   $("#customer_form").validate({
+       rules: {
+            f_name: {
+                required: true,
+                minlength: 3
+            },
+            l_name: {
+                required: true,
+                minlength: 3
+            },   
+        }
+    });
+});
 </script>
 
 <?php include_once 'includes/footer.php'; ?>

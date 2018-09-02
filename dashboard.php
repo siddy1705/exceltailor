@@ -17,7 +17,18 @@ $completed_orders = $db->getValue ("et_orders", "count(*)");
 $db->where('order_status', 'Processing');
 $processing_orders = $db->getValue ("et_orders", "count(*)");
 
+$d = new DateTime();
+$today = $d->format('Y-m-d');
 
+$db->where("created_at", $today . " 00:00:00", ">");
+$db->where("created_at", $today . " 23:59:59", "<");
+$received_today = $db->getValue("et_orders", "count(*)");
+
+$db->where("order_status", "Pending");
+$pending_orders = $db->getValue("et_orders", "count(*)");
+
+$db->where("delivery_date", $today);
+$due_today = $db->getValue("et_orders", "count(*)");
 
 include_once('includes/header.php');
 ?>
@@ -39,25 +50,25 @@ include_once('includes/header.php');
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-blue panel-widget border-right">
-						<div class="row no-padding"><a href="#" class="dashboard-stats" id="processing"><em class="fa fa-xl fa-comments color-orange"></em>
-							<div class="large"><?php echo $processing_orders; ?></div>
-							<div class="text-muted">Procressing Orders</div></a>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="processing"><em class="fa fa-xl fa-calendar-check-o color-orange"></em>
+							<div class="large"><?php echo $received_today; ?></div>
+							<div class="text-muted">Orders Received Today</div></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-red panel-widget border-right">
-						<div class="row no-padding"><a href="#" class="dashboard-stats" id="completed"><em class="fa fa-xl fa-check-square-o color-red"></em>
-							<div class="large"><?php echo $completed_orders; ?></div>
-							<div class="text-muted">Completed Orders</div></a>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="completed"><em class="fa fa-xl fa-refresh color-red"></em>
+							<div class="large"><?php echo $pending_orders; ?></div>
+							<div class="text-muted">Pending Orders</div></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget ">
-						<div class="row no-padding"><a href="customers.php" class="dashboard-stats-customers"><em class="fa fa-xl fa-users color-teal"></em>
-							<div class="large"><?php echo $numCustomers; ?></div>
-							<div class="text-muted">Total Customers</div></a>
+						<div class="row no-padding"><em class="fa fa-xl fa-clock-o color-teal"></em>
+							<div class="large"><?php echo $due_today; ?></div>
+							<div class="text-muted">Delivery Due Today</div>
 						</div>
 					</div>
 				</div>

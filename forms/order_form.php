@@ -33,7 +33,6 @@
                     <tr>
                       <th>Select</th>
                       <th>Name</th>
-                      <th>Gender</th>
                       <th>Phone</th> 
                     </tr>
                   </thead>
@@ -42,7 +41,6 @@
                       
                       <td><input type="radio" name="customer_id" value="<?php echo ($cust_id != NULL) ? $cust_id : '' ?>" <?php echo ($cust_id != NULL) ? 'checked' : '' ?> required></td>
                       <td id="name"><?php echo ($cust_name != NULL) ? $cust_name : '' ?></td>
-                      <td id="gender"><?php echo ($cust_gender != NULL) ? $cust_gender : '' ?></td>
                       <td id="phone"><?php echo ($phone_number != NULL) ? $phone_number : '' ?></td>
                     </tr>
                   </tbody>
@@ -60,22 +58,6 @@
             <div class="form-group col-lg-12 col-sm-12 col-sx-12" id="add_new_measurment" >  
                 <a href="" class="btn btn-default" style="margin-right: 8px;" data-toggle="modal" data-target="#add_measurment">Add New Measurment </a>
             </div>
-            
-            <!-- <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
-                <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Name</th>
-                    <th>UB A</th>
-                    <th>UB B</th>
-                    <th>LB A</th>
-                    <th>LB B</th>
-                </tr>
-                </thead>
-                <tbody id="measurment-table">
-                    
-                </tbody>
-            </table> -->
 
             <table class="table table-striped table-bordered table-condensed" id="customer-fetch">
                 <thead>
@@ -99,28 +81,72 @@
                  <h3 class="panel-title">Order Details</h3>
             </div>
             <div class="panel-body">
-                <div class="form-group col-lg-4 col-sm-4 col-sx-4 ">
-                    <label class="control-label">Order Type</label>
-                    <select class="form-control" id="order-type" name="order_type">
-                        <option value="Sherwani">Sherwani</option>
-                        <option value="Kurta">Kurta</option>
-                        <option value="suit">Suit</option>
-                        <option value="Formals">Formals</option>
-                        <option value="Indo-Westren">Indo-Westren</option>
-                        <option value="Pathani">Pathani</option>
-                        <option value="Safari">Safari</option>
-                    </select>
+                <div class="panel panel-success">
+                    <div class="panel-heading">Add New Item</div>
+                    <div class="panel-body add-item-panel">
+                        <div class="form-group col-lg-3 col-sm-3 col-sx-3 ">
+                            <label class="control-label">Order Type</label>
+                            <select class="form-control" id="order-type" name="order_type" novalidate>
+                                <option value="Sherwani">Sherwani</option>
+                                <option value="Kurta Pajama">Kurta Pajama</option>
+                                <option value="3 Piece Suit">3 Piece Suit</option>
+                                <option value="Suit">Suit</option>
+                                <option value="Pant">Pant</option>
+                                <option value="Shirt">Shirt</option>
+                                <option value="Jodhpuri">Jodhpuri</option>
+                                <option value="Pathani Salwar">Pathani Salwar</option>
+                                <option value="Safari">Safari</option>
+                                <option value="Jackets">Jackets</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-smtotal-amount-3 col-sx-3">
+                            <label class="control-label">Quantity</label>
+                            <input name="item_quantity" id="item-quantity" type="number" class="form-control" placeholder="Enter Item Quantity" />
+                        </div>
+                        <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                            <label class="control-label">Assigned To</label>
+                            <select class="form-control" id="assigned-to" name="assigned_to" novalidate>
+                                <?php 
+                                foreach($users as $user) {
+                                    echo '<option value="'. $user['id'] .'">'. $user['full_name'] .'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-smtotal-amount-3 col-sx-3">
+                            <label class="control-label">Rate</label>
+                            <input name="item_rate" id="item-rate" type="number" class="form-control" placeholder="Enter Item Rate" />
+                        </div>
+                        <div class="form-group col-lg-12 col-smtotal-amount-12 col-sx-12">
+                            <label class="control-label">Item Title</label>
+                            <input maxlength="200" name="order_title" type="text" id="item-title" class="form-control" placeholder="Enter Item Title" />
+                        </div>
+                        <div class="form-group col-lg-12 col-sm-12 col-sx-12">
+                            <label class="control-label">Item Description</label>
+                            <textarea name="order_description" placeholder="Enter Item Description" class="form-control" id="item-desc" rows="3"></textarea>
+                        </div>
+                        <button class="btn btn-default pull-right" type="button" id="save-item">Save Item</button>
+                    </div>
                 </div>
-                <div class="form-group col-lg-8 col-smtotal-amount-8 col-sx-8">
-                    <label class="control-label">Order Title</label>
-                    <input maxlength="200" name="order_title" type="text" required="required" class="form-control" placeholder="Enter Order Title" />
-                </div>
-                <div class="form-group col-lg-12 col-sm-12 col-sx-12">
-                    <label class="control-label">Order Description</label>
-                    <textarea name="order_description" placeholder="Enter Order Description" class="form-control" id="address" rows="5"></textarea>
-                </div>
+                <table class="table table-striped table-bordered table-condensed" id="item_list_table">
+                    <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Assigned To</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="item-list">
+                        
+                    </tbody>
+                </table>
                 <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
-                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                <button class="btn btn-primary nextBtn pull-right tempBtn" type="button">Next</button>
+                <!-- <button class="btn btn-primary tempBtn" type="button">Temp</button> -->
             </div>
         </div>
         
@@ -130,14 +156,8 @@
             </div>
             <div class="panel-body">
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                    <label class="control-label">Assigned To</label>
-                    <select class="form-control" id="assigned-to" name="assigned_to">
-                        <?php 
-                        foreach($users as $user) {
-                            echo '<option value="'. $user['id'] .'">'. $user['full_name'] .'</option>';
-                        }
-                        ?>
-                    </select>
+                    <label class="control-label">Excel Receipt No.</label>
+                    <input name="receipt_no" id="receipt_no" type="text" required="required" class="form-control" placeholder="Enter Excel Receipt No" />
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Delivery Date</label>
@@ -145,7 +165,7 @@
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Total Amount</label>
-                    <input name="total_amount" type="number" required="required" class="form-control" placeholder="Enter Total Amount" />
+                    <input name="total_amount" id="total-amount" type="number" required="required" class="form-control" placeholder="Enter Total Amount" />
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Amount Paid</label>

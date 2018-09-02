@@ -72,7 +72,7 @@ $('.dashboard-stats').click(function(e){
                 obj[element] = (obj[element]||0) + 1;
             });
             
-            var orderTypes = ["Sherwani", "Kurta", "Suit", "Formals", "Indo-Westren", "Pathani", "Safari"];
+            var orderTypes = ["Sherwani", "Kurta Pajama", "3 Piece Suit", "Suit", "Pant", "Shirt", "Jodhpuri", "Pathani Salwar", "Safari", "Jackets", "Others"];
 
             var today = new Date();
             var d;

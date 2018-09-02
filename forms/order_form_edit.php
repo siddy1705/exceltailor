@@ -12,16 +12,13 @@
                     <tr>
                       <th>Select</th>
                       <th>Name</th>
-                      <th>Gender</th>
                       <th>Phone</th> 
                     </tr>
                   </thead>
                   <tbody id="customer-table">
                     <tr id="cust_info">
-                      
                       <td><input type="radio" name="customer_id" value="<?php echo ($cust_id != NULL) ? $cust_id : '' ?>" <?php echo ($cust_id != NULL) ? 'checked' : '' ?> required></td>
                       <td id="name"><?php echo ($cust_name != NULL) ? $cust_name : '' ?></td>
-                      <td id="gender"><?php echo ($cust_gender != NULL) ? $cust_gender : '' ?></td>
                       <td id="phone"><?php echo ($phone_number != NULL) ? $phone_number : '' ?></td>
                     </tr>
                   </tbody>
@@ -72,7 +69,10 @@
                             . '<td>'. $measurment['ub_sleeves'] .'</td>'
                             . '<td>'. $measurment['ub_sleeve_round'] .'</td>'
                             . '<td>'. $measurment['ub_neck'] .'</td>'
-                            . '</tr></tbody></table>'
+                            . '</tr>'
+                            . '<tr><th colspan="8">Comments</th></tr>'
+                            . '<tr><td colspan="8">' . $measurment['ub_comments'] . '</td></tr>'
+                            . '</tbody></table>'
                             . '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
                             . '<tr><th colspan="8">Lower Body</th></tr>'
                             . '<tr><th>Length</th><th>Waist</th><th>Hip</th><th>Thigh</th>'
@@ -86,7 +86,10 @@
                             . '<td>'. $measurment['lb_knee'] .'</td>'
                             . '<td>'. $measurment['lb_bottom'] .'</td>'
                             . '<td>'. $measurment['lb_inside'] .'</td>'
-                            . '</tr></tbody></table>'
+                            . '</tr>'
+                            . '<tr><th colspan="8">Comments</th></tr>'
+                            . '<tr><td colspan="8">' . $measurment['lb_comments'] . '</td></tr>'
+                            . '</tbody></table>'
                             . '</td></tr>';
                         }
                     }
@@ -103,28 +106,80 @@
                  <h3 class="panel-title">Order Details</h3>
             </div>
             <div class="panel-body">
-                <div class="form-group col-lg-4 col-sm-4 col-sx-4 ">
-                    <label class="control-label">Order Type</label>
-                    <select class="form-control" id="order-type" name="order_type">
-                        <option value="Sherwani" <?php echo ($order['order_type'] == 'Sherwani') ? 'selected="selected"':''; ?>>Sherwani</option>
-                        <option value="Kurta" <?php echo ($order['order_type'] == 'Kurta') ? 'selected="selected"':'';   ?>>Kurta</option>
-                        <option value="Suit" <?php echo ($order['order_type'] == 'Suit') ? 'selected="selected"':''; ?>>Suit</option>
-                        <option value="Formals" <?php echo ($order['order_type'] == 'Formals') ? 'selected="selected"':''; ?>>Formals</option>
-                        <option value="Indo-Westren" <?php echo ($order['order_type'] == 'Indo-Westren') ? 'selected="selected"':'';   ?>>Indo-Westren</option>
-                        <option value="Pathani" <?php echo ($order['order_type'] == 'Pathani') ? 'selected="selected"':''; ?>>Pathani</option>
-                        <option value="Safari" <?php echo ($order['order_type'] == 'Safari') ? 'selected="selected"':''; ?>>Safari</option>
-                    </select>
+            <div class="panel panel-success">
+                    <div class="panel-heading">Add New Item</div>
+                    <div class="panel-body add-item-panel">
+                        <div class="form-group col-lg-3 col-sm-3 col-sx-3 ">
+                            <label class="control-label">Order Type</label>
+                            <select class="form-control" id="order-type" name="order_type" novalidate>
+                                <option value="Sherwani">Sherwani</option>
+                                <option value="Kurta Pajama">Kurta Pajama</option>
+                                <option value="3 Piece Suit">3 Piece Suit</option>
+                                <option value="Suit">Suit</option>
+                                <option value="Pant">Pant</option>
+                                <option value="Shirt">Shirt</option>
+                                <option value="Jodhpuri">Jodhpuri</option>
+                                <option value="Pathani Salwar">Pathani Salwar</option>
+                                <option value="Safari">Safari</option>
+                                <option value="Jackets">Jackets</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-smtotal-amount-3 col-sx-3">
+                            <label class="control-label">Quantity</label>
+                            <input name="item_quantity" id="item-quantity" type="number" class="form-control" placeholder="Enter Item Quantity" />
+                        </div>
+                        <div class="form-group col-lg-3 col-sm-3 col-sx-3">
+                            <label class="control-label">Assigned To</label>
+                            <select class="form-control" id="assigned-to" name="assigned_to" novalidate>
+                                <?php 
+                                foreach($users as $user) {
+                                    echo '<option value="'. $user['id'] .'">'. $user['full_name'] .'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-smtotal-amount-3 col-sx-3">
+                            <label class="control-label">Rate</label>
+                            <input name="item_rate" id="item-rate" type="number" class="form-control" placeholder="Enter Item Rate" />
+                        </div>
+                        <div class="form-group col-lg-12 col-smtotal-amount-12 col-sx-12">
+                            <label class="control-label">Item Title</label>
+                            <input maxlength="200" name="order_title" type="text" id="item-title" class="form-control" placeholder="Enter Item Title" />
+                        </div>
+                        <div class="form-group col-lg-12 col-sm-12 col-sx-12">
+                            <label class="control-label">Item Description</label>
+                            <textarea name="order_description" placeholder="Enter Item Description" class="form-control" id="item-desc" rows="3"></textarea>
+                        </div>
+                        <button class="btn btn-default pull-right" type="button" id="save-item">Save Item</button>
+                    </div>
                 </div>
-                <div class="form-group col-lg-8 col-smtotal-amount-8 col-sx-8">
-                    <label class="control-label">Order Title</label>
-                    <input maxlength="200" name="order_title" id="order-title" type="text" required="required" class="form-control" placeholder="Enter Order Title" value="<?php echo $order['order_title']; ?>" />
-                </div>
-                <div class="form-group col-lg-12 col-sm-12 col-sx-12">
-                    <label class="control-label">Order Description</label>
-                    <textarea name="order_description" placeholder="Enter Order Description" class="form-control" id="address" rows="5"><?php echo $order['order_description']; ?></textarea>
-                </div>
+                <table class="table table-striped table-bordered table-condensed" id="item_list_table">
+                    <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Assigned To</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="item-list">
+                      <?php foreach($items as $item) { ?>
+                        <tr id="<?php echo $item['item_id']; ?>">
+                            <td><?php echo $item['item_type']; ?></td>
+                            <td><?php echo $item['item_quantity']; ?></td>
+                            <td><?php echo $item['assigned_to']; ?></td>
+                            <td><?php echo $item['item_title']; ?></td>
+                            <td><?php echo $item['item_amount']; ?></td>
+                            <td><button class="btn btn-danger delete-item-db" type="button" id="<?php echo $item['item_id']; ?>" amount="<?php echo $item['item_amount']; ?>"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        </tr>
+                      <?php } ?> 
+                    </tbody>
+                </table>
                 <button class="btn btn-primary prevBtn pull-left" type="button">Previous</button>
-                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                <button class="btn btn-primary nextBtn pull-right tempBtn" type="button">Next</button>
             </div>
         </div>
         
@@ -134,15 +189,8 @@
             </div>
             <div class="panel-body">
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
-                    <label class="control-label">Assigned To</label>
-                    <select class="form-control" id="assigned-to" name="assigned_to">
-                        <?php 
-                        foreach($users as $user) {
-                            $selected = ($user['id'] == $order['assigned_to']) ? 'selected="selected"':'';
-                            echo '<option value="'. $user['id'] .'"'.$selected.'>'. $user['full_name'] .'</option>';
-                        }
-                        ?>
-                    </select>
+                    <label class="control-label">Excel Receipt No.</label>
+                    <input name="receipt_no" id="receipt_no" type="text" required="required" class="form-control" placeholder="Enter Excel Receipt No" value="<?php echo $order['receipt_no']; ?>"/>
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Delivery Date</label>
@@ -159,6 +207,7 @@
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Order Status</label>
                     <select class="form-control" id="order-status" name="order_status">
+                        <option value="Pending" <?php echo ($order['order_status'] == 'Pending') ? 'selected="selected"':''; ?>>Pending</option>
                         <option value="Processing" <?php echo ($order['order_status'] == 'Processing') ? 'selected="selected"':''; ?>>Processing</option>
                         <option value="Completed" <?php echo ($order['order_status'] == 'Completed') ? 'selected="selected"':'';   ?>>Completed</option>
                         <option value="Cancelled" <?php echo ($order['order_status'] == 'Cancelled') ? 'selected="selected"':''; ?>>Cancelled</option>

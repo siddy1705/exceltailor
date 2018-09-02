@@ -3,6 +3,11 @@ session_start();
 require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
+if($_SESSION['user_type']!='administrator'){
+    header('HTTP/1.1 401 Unauthorized', true, 401);
+    exit("401 Unauthorized");
+}
+
 //Get Input data from query string
 $search_string = filter_input(INPUT_GET, 'search_string');
 $filter_col = filter_input(INPUT_GET, 'filter_col');
@@ -18,17 +23,9 @@ if (!$page) {
     $page = 1;
 }
 
-// If filter types are not selected we show latest created data first
-if (!$filter_col) {
-    $filter_col = "created_at";
-}
-if (!$order_by) {
-    $order_by = "Desc";
-}
-
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('customer_id', 'f_name', 'l_name', 'gender', 'phone','created_at','updated_at');
+$select = array('customer_id', 'f_name', 'l_name', 'phone','created_at','updated_at');
 
 //Start building query according to input parameters.
 // If search string
@@ -36,6 +33,7 @@ if ($search_string)
 {
     $db->where('f_name', '%' . $search_string . '%', 'like');
     $db->orwhere('l_name', '%' . $search_string . '%', 'like');
+    $db->orwhere('phone', '%' . $search_string . '%', 'like');
 }
 
 //If order by option selected
@@ -46,6 +44,9 @@ if ($order_by)
 
 //Set pagination limit
 $db->pageLimit = $pagelimit;
+
+// Order by "created_at" in descending order
+$db->orderBy("created_at", "Desc");
 
 //Get result of the query.
 $customers = $db->arraybuilder()->paginate("et_customers", $page, $select);
@@ -82,33 +83,8 @@ include_once 'includes/header.php';
     <div class="well text-center filter-form">
         <form class="form form-inline" action="">
             <label for="input_search">Search</label>
-            <input type="text" class="form-control" id="input_search" name="search_string" value="<?php echo $search_string; ?>">
-            <label for ="input_order">Order By</label>
-            <select name="filter_col" class="form-control">
-
-                <?php
-                foreach ($filter_options as $option) {
-                    ($filter_col === $option) ? $selected = "selected" : $selected = "";
-                    echo ' <option value="' . $option . '" ' . $selected . '>' . $option . '</option>';
-                }
-                ?>
-
-            </select>
-
-            <select name="order_by" class="form-control" id="input_order">
-
-                <option value="Asc" <?php
-                if ($order_by == 'Asc') {
-                    echo "selected";
-                }
-                ?> >Asc</option>
-                <option value="Desc" <?php
-                if ($order_by == 'Desc') {
-                    echo "selected";
-                }
-                ?>>Desc</option>
-            </select>
-            <input type="submit" value="Go" class="btn btn-primary">
+            <input type="text" class="form-control" id="input_search" name="search_string" value="<?php echo $search_string; ?>" placeholder="Enter Customer Name or Mobile Number" style="width: 346px;">
+            <input type="submit" value="Go" class="btn btn-primary btn-lg">
 
         </form>
     </div>
@@ -122,8 +98,7 @@ include_once 'includes/header.php';
             <tr>
                 <!-- <th class="header">#</th> -->
                 <th>Name</th>
-                <th>Gender</th>
-                <th>phone</th>
+                <th>Phone Number</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -132,7 +107,6 @@ include_once 'includes/header.php';
                 <tr>
 	                <!-- <td><?php echo $row['customer_id'] ?></td> -->
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
-	                <td><?php echo htmlspecialchars($row['gender']) ?></td>
 	                <td><?php echo htmlspecialchars($row['phone']) ?> </td>
 	                <td>
                     <form action="add_order.php" method="POST" style="display:inline-block;">

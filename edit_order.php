@@ -20,19 +20,52 @@ if($order_id == NULL && $operation == NULL) {
 //Handle update request. As the form's action attribute is set to the same script, but 'POST' method, 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
+    
+    $item_data = $_SESSION['item_details_array'];
+
     //Get customer id form query string parameter.
     $order_id = filter_input(INPUT_GET, 'order_id', FILTER_SANITIZE_STRING);
 
     //Get input data
-    $data_to_update = filter_input_array(INPUT_POST);
+    $order_data = filter_input_array(INPUT_POST);
+
+    //echo $order_data['measurment_id']; die;
     
+    $data_to_update['order_status'] = $order_data['order_status'];
+    $data_to_update['customer_id'] = (int)$order_data['customer_id'];
+    $data_to_update['measurment_id'] = (int)$order_data['measurment_id'];
+    $data_to_update['total_amount'] = (int)$order_data['total_amount'];
+    $data_to_update['amount_paid'] = (int)$order_data['amount_paid'];
+    $data_to_update['receipt_no'] = $order_data['receipt_no'];
+    $data_to_update['delivery_date'] = date('Y-m-d', strtotime($order_data['delivery_date']));
     $data_to_update['updated_at'] = date('Y-m-d H:i:s');
+    
     $db = getDbInstance();
     $db->where('order_id',$order_id);
     $stat = $db->update('et_orders', $data_to_update);
 
     if($stat)
     {
+        //var_dump($item_data); die;
+        //Save Item
+        foreach($item_data as $item){
+            $item_to_store['order_id'] = $order_id;
+            $item_to_store['item_type'] = $item[0];
+            $item_to_store['item_quantity'] = (int)$item[1];
+            $item_to_store['assigned_to'] = (int)$item[2];
+            $item_to_store['item_rate'] = (int)$item[3];
+            $item_to_store['item_title'] = $item[4];
+            $item_to_store['item_description'] = $item[5];
+            $item_to_store['item_amount'] = (int)$item[6];
+            $item_to_store['item_status'] = "Pending";
+            //$item_to_store['measurment_id'] = (int)$order_data['measurment_id'];
+
+            //var_dump($item_to_store); die;
+
+            $db->insert ('et_items', $item_to_store);
+            unset($_SESSION['item_details_array']);
+        }
+
         $_SESSION['success'] = "Order updated successfully!";
         //Redirect to the listing page,
         header('location: orders.php');
@@ -48,7 +81,9 @@ if($edit)
     $db->where('order_id', $order_id);
     $order = $db->getOne("et_orders");
 
-    //var_dump($order['customer_id']); die;
+    $db->where('order_id', $order_id);
+    $items = $db->get("et_items");
+    // var_dump($items); die;
 
     //$db->where('id', $order['assigned_to']);
     $users = $db->get("et_users");

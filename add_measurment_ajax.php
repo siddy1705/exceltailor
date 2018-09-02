@@ -42,6 +42,10 @@ foreach($measurment_data as $measurment) {
         $data_to_store['ub_neck'] = $measurment['value'];
         break;
 
+        case 'ub_comments':
+        $data_to_store['ub_comments'] = $measurment['value'];
+        break;
+
         case 'lb_length':
         $data_to_store['lb_length'] = $measurment['value'];
         break;
@@ -68,6 +72,10 @@ foreach($measurment_data as $measurment) {
 
         case 'lb_inside':
         $data_to_store['lb_inside'] = $measurment['value'];
+        break;
+
+        case 'lb_comments':
+        $data_to_store['lb_comments'] = $measurment['value'];
         break;
 
     }

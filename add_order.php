@@ -62,7 +62,7 @@ $users = $db->get('et_users');
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add New Measurment</h4>
             </div>
-            <div class="modal-body" style="height:570px;">
+            <div class="modal-body" style="height:750px;">
                 
                 <div class="form-group col-lg-12 col-sm-12 col-sx-12">
                     <label class="control-label">Measurment Name</label>
@@ -103,6 +103,10 @@ $users = $db->get('et_users');
                     <label class="control-label">Neck</label>
                     <input type="text" class="form-control" placeholder="" id="ub_neck" name="ub_neck"/>
                 </div>
+                <div class="form-group col-lg-12 col-sm-12 col-sx-12">
+                    <label class="control-label">Comments</label>
+                    <textarea class="form-control" placeholder="" id="ub_comments" name="ub_comments"></textarea>
+                </div>
                
                 <h4 style="text-align:center">Lower Body</h4>
                 <hr/>
@@ -133,6 +137,10 @@ $users = $db->get('et_users');
                 <div class="form-group col-lg-3 col-sm-3 col-sx-3">
                     <label class="control-label">Inside</label>
                     <input type="text" class="form-control" placeholder="" id="lb_inside" name="lb_inside"/>
+                </div>
+                <div class="form-group col-lg-12 col-sm-12 col-sx-12">
+                    <label class="control-label">Comments</label>
+                    <textarea class="form-control" placeholder="" id="lb_comments" name="lb_comments"></textarea>
                 </div>
                 
             </div>

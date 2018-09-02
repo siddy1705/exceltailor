@@ -16,6 +16,11 @@
     if(CURRENT_PAGE == 'dashboard.php')
 		echo '<script src="js/chart-data.js"></script>';
 	?>
+
+	<?php 
+    if(CURRENT_PAGE == 'items.php')
+		echo '<script src="js/custom-item.js"></script>';
+	?>
   	
 	<?php 
     if(CURRENT_PAGE == 'add_order.php')
