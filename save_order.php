@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $data_to_store['measurment_id'] = (int)$order_data['measurment_id'];
     $data_to_store['total_amount'] = (int)$order_data['total_amount'];
     $data_to_store['amount_paid'] = (int)$order_data['amount_paid'];
-    $data_to_store['receipt_no'] = (int)$order_data['receipt_no'];
+    $data_to_store['receipt_no'] = $order_data['receipt_no'];
     $data_to_store['delivery_date'] = date('Y-m-d', strtotime($order_data['delivery_date']));
 
     //var_dump($data_to_store); die;

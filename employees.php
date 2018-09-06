@@ -135,6 +135,8 @@ include_once 'includes/header.php';
                 <td><?php echo htmlspecialchars($row['type']) ?></td>
 
                 <td>
+                    <a href="items.php?employee_id=<?php echo $row['id'] ?>" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-eye-open"></span></a>
+
                     <a href="edit_employee.php?user_id=<?php echo $row['id']?>&operation=edit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 
                     <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span>

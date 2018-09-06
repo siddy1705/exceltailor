@@ -153,9 +153,9 @@ $(document).ready(function () {
     e.preventDefault();
     var orderId = $('#order-id').val();
     var customerName = $('td#name').html();
-    var orderTitle = $('#order-title').val();
     var totalAmount = $('#total-amount').val();
     var orderStatus = $('#order-status :selected').val();
+    var receiptNumber = $('#receipt_no').val();
 
     var fileExists = doesFileExist('receipts/excel-' + orderId + '.pdf');
     console.log('file exists: ' + fileExists);
@@ -172,8 +172,8 @@ $(document).ready(function () {
           data: {
             orderId: orderId,
             customerName: customerName,
-            orderTitle: orderTitle,
-            totalAmount: totalAmount
+            totalAmount: totalAmount,
+            receiptNumber: receiptNumber
           },
           success: function(results) {
             console.log(results);

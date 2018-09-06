@@ -7,6 +7,7 @@ require_once 'includes/auth_validate.php';
 $search_string = filter_input(INPUT_GET, 'search_string');
 $item_type = filter_input(INPUT_GET, 'item_type');
 $order_id = filter_input(INPUT_GET, 'order_id');
+$employee_id = filter_input(INPUT_GET, 'employee_id');
 //$order_by = filter_input(INPUT_GET, 'order_by');
 
 //Get current page.
@@ -35,6 +36,8 @@ if ($search_string)
 if ($item_type && $item_type != "All") { $db->where("i.item_type", $item_type);}
 
 if($order_id) { $db->where("i.order_id", $order_id);}
+
+if($employee_id) { $db->where("i.assigned_to", $employee_id);}
 
 if($_SESSION['user_type'] == "employee") { $db->where("i.assigned_to", $_SESSION["user_id"]);}
 

@@ -10,15 +10,15 @@ if($_SESSION['user_type']!='administrator'){
     exit("401 Unauthorized");
 }
 
-echo "printing";
-// Delete a user using user_id
 if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $db->where('order_id', $del_id);
     $stat = $db->delete('et_orders');
     var_dump($stat);
     if ($stat) {
-        $_SESSION['info'] = "Order deleted successfully!";
+        $db->where("order_id", $del_id);
+        $db->delete('et_items');
+        $_SESSION['info'] = "Order & Items Deleted Successfully!";
         header('location: orders.php');
         exit;
     }
