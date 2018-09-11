@@ -33,7 +33,7 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid');
+$select = array('o.order_id', 'c.f_name', 'c.l_name', 'c.phone', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid');
 
 //Start building query according to input parameters.
 // If search string
@@ -151,13 +151,13 @@ include_once 'includes/header.php';
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
 	                <!-- <td><?php //echo htmlspecialchars($row['full_name']) ?> </td> -->
                     <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
-                    <td><?php echo $pending_amount; ?> </td>
+                    <td id="pending-amount"><?php echo $pending_amount; ?> </td>
 	                <td>
                     <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-eye-open"></span></a>
                     
                     <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 
-                    <a class="btn btn-info send-sms" onclick="launch_toast()" style="margin-right: 8px;"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <a class="btn btn-info send-sms" id="<?php echo $row['phone']; ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-envelope"></span></a>
 
                     <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>

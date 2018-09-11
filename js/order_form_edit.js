@@ -193,39 +193,29 @@ $(document).ready(function () {
     var orderId = $('#order-id').val();
     var customerName = $('td#name').html();
     var totalAmount = $('#total-amount').val();
-    var amountPaid = $('#amount-apid').val();
+    var amountPaid = $('#amount-paid').val();
     var receiptNumber = $('#receipt_no').val();
-    var phoneNumber = $('td#phone').val();
+    var phoneNumber = $('td#phone').html();
     var pendingAmount = totalAmount - amountPaid;
-    var message = 'Dear ' + customerName + ', your order at Excel Tailors has been completed sucessfully. Please pay the pending amount of Rs.' + pendingAmount + ' and collect your order within 2-3 days. Thanks';
     
-    $.get("http://173.45.76.227/balance.aspx?username=excel&pass=excel").done(function (data) {
-        console.log(data);
+    var message = 'Dear customer, your order at Excel Tailors has been completed. Please pay the pending amount of Rs.' + pendingAmount + ' and collect your order within 2-3 days. Thanks';
+    console.log(phoneNumber);
+    $.ajax({
+      type: "POST",
+      url: "send-sms-ajax.php",
+      data: {
+        number: phoneNumber,
+        message: message
+      },
+      success: function(results) {
+        console.log(results);
+        launch_toast();
+        //console.log('message: ' + message);
+      },
+      error: function(error) {
+        console.log(error);    
+      }
     });
-   
-    // $.ajax({
-    //   type: "POST",
-    //   url: "http://173.45.76.227/balance.aspx?callback=",
-    //   //dataType: "text",
-    //   // crossDomain: true,
-    //   // async: true,
-    //   data: {
-    //     username: 'excel',
-    //     pass: 'excel'
-    //     // route: 'trans1',
-    //     // senderid: 'EXCELL',
-    //     // number: phoneNumber,
-    //     // message: message
-    //   },
-    //   success: function(results) {
-    //     console.log(results);
-    //     console.log('message: ' + message);
-    //   },
-    //   error: function(error) {
-    //     console.log(error);    
-    //   }
-    // });
-    
   })
 
   $('.delete-item-db').click(function(e){
