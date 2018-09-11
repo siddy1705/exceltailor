@@ -188,6 +188,46 @@ $(document).ready(function () {
     }
   })
 
+  $('#send-sms').click(function(e){
+    e.preventDefault();
+    var orderId = $('#order-id').val();
+    var customerName = $('td#name').html();
+    var totalAmount = $('#total-amount').val();
+    var amountPaid = $('#amount-apid').val();
+    var receiptNumber = $('#receipt_no').val();
+    var phoneNumber = $('td#phone').val();
+    var pendingAmount = totalAmount - amountPaid;
+    var message = 'Dear ' + customerName + ', your order at Excel Tailors has been completed sucessfully. Please pay the pending amount of Rs.' + pendingAmount + ' and collect your order within 2-3 days. Thanks';
+    
+    $.get("http://173.45.76.227/balance.aspx?username=excel&pass=excel").done(function (data) {
+        console.log(data);
+    });
+   
+    // $.ajax({
+    //   type: "POST",
+    //   url: "http://173.45.76.227/balance.aspx?callback=",
+    //   //dataType: "text",
+    //   // crossDomain: true,
+    //   // async: true,
+    //   data: {
+    //     username: 'excel',
+    //     pass: 'excel'
+    //     // route: 'trans1',
+    //     // senderid: 'EXCELL',
+    //     // number: phoneNumber,
+    //     // message: message
+    //   },
+    //   success: function(results) {
+    //     console.log(results);
+    //     console.log('message: ' + message);
+    //   },
+    //   error: function(error) {
+    //     console.log(error);    
+    //   }
+    // });
+    
+  })
+
   $('.delete-item-db').click(function(e){
     e.preventDefault();
     var itemId = $(this).attr("id");

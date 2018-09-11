@@ -50,7 +50,7 @@ include_once('includes/header.php');
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-blue panel-widget border-right">
-						<div class="row no-padding"><a href="#" class="dashboard-stats" id="processing"><em class="fa fa-xl fa-calendar-check-o color-orange"></em>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="created_today"><em class="fa fa-xl fa-calendar-check-o color-orange"></em>
 							<div class="large"><?php echo $received_today; ?></div>
 							<div class="text-muted">Orders Received Today</div></a>
 						</div>
@@ -58,7 +58,7 @@ include_once('includes/header.php');
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-red panel-widget border-right">
-						<div class="row no-padding"><a href="#" class="dashboard-stats" id="completed"><em class="fa fa-xl fa-refresh color-red"></em>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="pending"><em class="fa fa-xl fa-refresh color-red"></em>
 							<div class="large"><?php echo $pending_orders; ?></div>
 							<div class="text-muted">Pending Orders</div></a>
 						</div>
@@ -66,9 +66,9 @@ include_once('includes/header.php');
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget ">
-						<div class="row no-padding"><em class="fa fa-xl fa-clock-o color-teal"></em>
+						<div class="row no-padding"><a href="#" class="dashboard-stats" id="due_today"><em class="fa fa-xl fa-clock-o color-teal"></em>
 							<div class="large"><?php echo $due_today; ?></div>
-							<div class="text-muted">Delivery Due Today</div>
+							<div class="text-muted">Delivery Due Today</div></a>
 						</div>
 					</div>
 				</div>

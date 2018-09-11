@@ -202,7 +202,7 @@
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Amount Paid</label>
-                    <input name="amount_paid" type="number" required="required" class="form-control" placeholder="Enter Amount Paid" value="<?php echo $order['amount_paid']; ?>"/>
+                    <input name="amount_paid" type="number" required="required" class="form-control" placeholder="Enter Amount Paid" id="amount-paid" value="<?php echo $order['amount_paid']; ?>"/>
                 </div>
                 <div class="form-group col-lg-6 col-sm-6 col-sx-6">
                     <label class="control-label">Order Status</label>

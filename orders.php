@@ -154,7 +154,10 @@ include_once 'includes/header.php';
                     <td><?php echo $pending_amount; ?> </td>
 	                <td>
                     <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    
                     <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
+
+                    <a class="btn btn-info send-sms" onclick="launch_toast()" style="margin-right: 8px;"><span class="glyphicon glyphicon-envelope"></span></a>
 
                     <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>

@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $('select.item-status').on('change', function() {
+    console.log("hello");
     var itemId = $(this).attr("id");
     var itemStatus = (this.value);
 

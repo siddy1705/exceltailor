@@ -46,16 +46,20 @@ $('.dashboard-stats').click(function(e){
 
 	$('#order-graph-heading').empty();
 
-	if(toggleId == "completed"){
-		status = "Completed";
-		$('#order-graph-heading').text('Completed Orders Graph');
+	if(toggleId == "created_today"){
+		status = "created_today";
+		$('#order-graph-heading').text('Orders Received Today');
 	}
-	else if(toggleId == "processing"){
-		status = "Processing";
-		$('#order-graph-heading').text('Processing Orders Graph');
+	else if(toggleId == "pending"){
+		status = "pending";
+		$('#order-graph-heading').text('Pending Orders');
+	}
+	else if(toggleId == "due_today"){
+		status = "due_today";
+		$('#order-graph-heading').text('Delivery Due Today');
 	}
 	else {
-		$('#order-graph-heading').text('Total Orders Graph');
+		$('#order-graph-heading').text('Total Orders');
 	}
 	$.ajax({
 		url : "orders_bargraph_data_ajax.php",
@@ -68,9 +72,11 @@ $('.dashboard-stats').click(function(e){
             console.log(data);
             var obj = {};
             //var data = JSON.parse(data);
-            data.forEach(element => {
-                obj[element] = (obj[element]||0) + 1;
-            });
+			if(data == null) { data = []; }
+			
+			data.forEach(element => {
+				obj[element] = (obj[element]||0) + 1;
+			});
             
             var orderTypes = ["Sherwani", "Kurta Pajama", "3 Piece Suit", "Suit", "Pant", "Shirt", "Jodhpuri", "Pathani Salwar", "Safari", "Jackets", "Others"];
 
