@@ -3,7 +3,7 @@ session_start();
 require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
-if($_SESSION['user_type']!='administrator'){
+if($_SESSION['user_type']!='administrator' && $_SESSION['user_type']!='manager'){
     header('HTTP/1.1 401 Unauthorized', true, 401);
     exit("401 Unauthorized");
 }
@@ -12,6 +12,10 @@ if($_SESSION['user_type']!='administrator'){
 $search_string = filter_input(INPUT_GET, 'search_string');
 $filter_col = filter_input(INPUT_GET, 'filter_col');
 $order_by = filter_input(INPUT_GET, 'order_by');
+$order_status = filter_input(INPUT_GET, 'order_status');
+$customer_id = filter_input(INPUT_GET, 'customer_id');
+$delivery_due = filter_input(INPUT_GET, 'due');
+$delivery_date = filter_input(INPUT_GET, 'delivery_date');
 
 //Get current page.
 $page = filter_input(INPUT_GET, 'page');
@@ -41,6 +45,26 @@ if ($search_string)
 {
     $db->where('c.f_name', '%' . $search_string . '%', 'like');
     $db->orwhere('c.l_name', '%' . $search_string . '%', 'like');
+    $db->orwhere('c.phone', '%' . $search_string . '%', 'like');
+}
+
+if ($order_status && $order_status != "All") { $db->where("o.order_status", $order_status);}
+
+if($customer_id) { $db->where("o.customer_id", $customer_id); }
+
+if($delivery_date) { $db->where("o.delivery_date", $delivery_date); }
+
+$today = date('Y-m-d');
+
+$d = new DateTime('+1day');
+$tomorrow = $d->format('Y-m-d');
+
+if($delivery_due) { 
+    if($delivery_due == 'today')
+    $db->where("o.delivery_date", $today);
+
+    if($delivery_due == 'tomorrow')
+    $db->where("o.delivery_date", $tomorrow); 
 }
 
 //If order by option selected
@@ -92,31 +116,16 @@ include_once 'includes/header.php';
         <form class="form form-inline" action="">
             <label for="input_search">Search</label>
             <input type="text" class="form-control" id="input_search" name="search_string" value="<?php echo $search_string; ?>">
-            <label for ="input_order">Order By</label>
-            <select name="filter_col" class="form-control">
-
-                <?php
-                foreach ($filter_options as $option) {
-                    ($filter_col === $option) ? $selected = "selected" : $selected = "";
-                    echo ' <option value="' . $option . '" ' . $selected . '>' . $option . '</option>';
-                }
-                ?>
-
+            <label for ="input_order">Order Status</label>
+            <select class="form-control" id="order-sattus" name="order_status" novalidate>
+                <option value="All">All</option>
+                <option value="Pending" <?php echo ($order_status == "Pending")?"Selected":""; ?>>Pending</option>
+                <option value="Processing" <?php echo ($order_status == "Processing")?"Selected":""; ?>>Processing</option>
+                <option value="Completed" <?php echo ($order_status == "Completed")?"Selected":""; ?>>Completed</option>
+                <option value="Cancelled" <?php echo ($order_status == "Cancelled")?"Selected":""; ?>>Cancelled</option>
             </select>
-
-            <select name="order_by" class="form-control" id="input_order">
-
-                <option value="Asc" <?php
-                if ($order_by == 'Asc') {
-                    echo "selected";
-                }
-                ?> >Asc</option>
-                <option value="Desc" <?php
-                if ($order_by == 'Desc') {
-                    echo "selected";
-                }
-                ?>>Desc</option>
-            </select>
+            <label for ="input_order">Delivery Date</label>
+            <input type="text" class="form-control" placeholder="Enter Delivery Date" id="delivery-date" name="delivery_date" value="<?php echo $delivery_date; ?>"/>
             <input type="submit" value="Go" class="btn btn-primary btn-lg">
 
         </form>
@@ -153,13 +162,13 @@ include_once 'includes/header.php';
                     <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
                     <td id="pending-amount"><?php echo $pending_amount; ?> </td>
 	                <td>
-                    <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success order-actions"><span class="glyphicon glyphicon-eye-open"></span></a>
                     
-                    <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary order-actions"><span class="glyphicon glyphicon-edit"></span></a>
 
-                    <a class="btn btn-info send-sms" id="<?php echo $row['phone']; ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <a class="btn btn-info send-sms order-actions" <?php if($row['order_status'] != "Completed") { echo 'style="display:none"'; } ?> id="<?php echo $row['phone']; ?>"><span class="glyphicon glyphicon-envelope"></span></a>
 
-                    <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href=""  class="btn btn-danger delete_btn order-actions" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>
                 </tr>
 

@@ -1058,6 +1058,10 @@ td {
   vertical-align: middle !important;
 }
 
+.employee-actions, .customer-actions, .order-actions {
+  margin-right: 8px;
+}
+
 /* Toast Styles */
 
 #toast {

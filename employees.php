@@ -36,6 +36,7 @@ $select = array('id', 'full_name', 'user_name', 'type');
 // If user searches 
 if ($search_string) {
     $db->where('user_name', '%' . $search_string . '%', 'like');
+    $db->orwhere('full_name', '%' . $search_string . '%', 'like');
 }
 
 
@@ -85,31 +86,7 @@ include_once 'includes/header.php';
         <form class="form form-inline" action="">
             <label for="input_search" >Search</label>
             <input type="text" class="form-control" id="input_search"  name="search_string" value="<?php echo $search_string; ?>">
-            <label for ="input_order">Order By</label>
-            <select name="filter_col" class="form-control">
-
-                <?php
-                foreach ($filter_options as $option) {
-                    ($filter_col === $option) ? $selected = "selected" : $selected = "";
-                    echo ' <option value="' . $option . '" ' . $selected . '>' . $option . '</option>';
-                }
-                ?>
-
-            </select>
-
-            <select name="order_by" class="form-control" id="input_order">
-
-                <option value="Asc" <?php
-                if ($order_by == 'Asc') {
-                    echo "selected";
-                }
-                ?> >Asc</option>
-                <option value="Desc" <?php
-                if ($order_by == 'Desc') {
-                    echo "selected";
-                }
-                ?>>Desc</option>
-            </select>
+            
             <input type="submit" value="Go" class="btn btn-primary">
 
         </form>
@@ -135,11 +112,11 @@ include_once 'includes/header.php';
                 <td><?php echo htmlspecialchars($row['type']) ?></td>
 
                 <td>
-                    <a href="items.php?employee_id=<?php echo $row['id'] ?>" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a href="items.php?employee_id=<?php echo $row['id'] ?>" class="btn btn-success employee-actions" ><span class="glyphicon glyphicon-eye-open"></span></a>
 
-                    <a href="edit_employee.php?user_id=<?php echo $row['id']?>&operation=edit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="edit_employee.php?user_id=<?php echo $row['id']?>&operation=edit" class="btn btn-primary employee-actions"><span class="glyphicon glyphicon-edit"></span></a>
 
-                    <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span>
+                    <a href=""  class="btn btn-danger delete_btn employee-actions" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-trash"></span>
                     
                 </td>
             </tr>

@@ -24,4 +24,12 @@ $(document).ready(function () {
       }
     });
   })
+
+  $( "#delivery-date" ).datepicker({
+    format: "yyyy-mm-dd"
+  });
+
+  $('#delivery-date').on('changeDate', function(ev){
+    $(this).datepicker('hide');
+  });
 })

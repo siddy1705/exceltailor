@@ -3,6 +3,11 @@ session_start();
 require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
+if($_SESSION['user_type']!='administrator' && $_SESSION['user_type']!='manager'){
+    header('HTTP/1.1 401 Unauthorized', true, 401);
+    exit("401 Unauthorized");
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {  
   $customer_data = filter_input_array(INPUT_POST);

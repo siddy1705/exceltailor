@@ -3,7 +3,7 @@ session_start();
 require_once './config/config.php';
 require_once 'includes/auth_validate.php';
 
-if($_SESSION['user_type']!='administrator'){
+if($_SESSION['user_type']!='administrator' && $_SESSION['user_type']!='manager'){
     header('HTTP/1.1 401 Unauthorized', true, 401);
     exit("401 Unauthorized");
 }
@@ -115,12 +115,16 @@ include_once 'includes/header.php';
                       <input type="hidden" name="l_name" value="<?php echo $row['l_name']; ?>" />
                       <input type="hidden" name="gender" value="<?php echo $row['gender']; ?>" />
                       <input type="hidden" name="phone" value="<?php echo $row['phone']; ?>" />
-                      <button type="submit" class="btn btn-success" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></button>
+                      <button type="submit" class="btn btn-success customer-actions"><span class="glyphicon glyphicon-plus"></span></button>
                     </form>
-                    
-                    <a href="edit_customer.php?customer_id=<?php echo $row['customer_id'] ?>&operation=edit" class="btn btn-primary" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
 
-                    <a href=""  class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['customer_id'] ?>" style="margin-right: 8px;"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href="orders.php?customer_id=<?php echo $row['customer_id'] ?>" class="btn btn-success customer-actions"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    
+                    <?php if($_SESSION['user_type']!='manager') { ?>
+                    <a href="edit_customer.php?customer_id=<?php echo $row['customer_id'] ?>&operation=edit" class="btn btn-primary customer-actions"><span class="glyphicon glyphicon-edit"></span></a>
+
+                    <a href=""  class="btn btn-danger delete_btn customer-actions" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['customer_id'] ?>"><span class="glyphicon glyphicon-trash"></span></a>
+                    <?php } ?>
                   </td>
                 </tr>
 

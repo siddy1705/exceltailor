@@ -45,6 +45,11 @@
                     <input type="radio" name="type" value="employee" required="" <?php echo ($edit && $user_account['type'] =='employee') ? "checked": "" ; ?>/> Employee
                 </label>
             </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="type" value="manager" required="" <?php echo ($edit && $user_account['type'] =='manager') ? "checked": "" ; ?>/> Manager
+                </label>
+            </div>
         </div>
     </div>
     <!-- Button -->
