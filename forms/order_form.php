@@ -88,6 +88,8 @@
                             <label class="control-label">Order Type</label>
                             <select class="form-control" id="order-type" name="order_type" novalidate>
                                 <option value="Sherwani">Sherwani</option>
+                                <option value="Sherwani - Kurta">Sherwani - Kurta</option>
+                                <option value="Sherwani - Pajama">Sherwani - Pajama</option>
                                 <option value="Kurta Pajama">Kurta Pajama</option>
                                 <option value="3 Piece Suit">3 Piece Suit</option>
                                 <option value="Suit">Suit</option>

@@ -87,6 +87,8 @@ include_once 'includes/header.php';
             <select class="form-control" id="item-type" name="item_type" novalidate>
                 <option value="All">All</option>
                 <option value="Sherwani" <?php echo ($item_type == "Sherwani")?"Selected":""; ?>>Sherwani</option>
+                <option value="Sherwani - Kurta" <?php echo ($item_type == "Sherwani - Kurta")?"Selected":""; ?>>Sherwani - Kurta</option>
+                <option value="Sherwani - Pajama" <?php echo ($item_type == "Sherwani - Pajama")?"Selected":""; ?>>Sherwani - Pajama</option>
                 <option value="Kurta Pajama" <?php echo ($item_type == "Kurta Pajama")?"Selected":""; ?>>Kurta Pajama</option>
                 <option value="3 Piece Suit" <?php echo ($item_type == "3 Piece Suit")?"Selected":""; ?>>3 Piece Suit</option>
                 <option value="Suit" <?php echo ($item_type == "Suit")?"Selected":""; ?>>Suit</option>
@@ -126,7 +128,7 @@ include_once 'includes/header.php';
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
                     <td><?php echo htmlspecialchars($row['item_type']) ?></td>
                     <td><?php echo htmlspecialchars($row['item_title']) ?> </td>
-                    <td><a class="btn btn-default view-measurment" id="view-measurment" data-toggle="modal" data-target="#view-measurment-<?php echo $row['order_id'] ?>">View</a></td>
+                    <td><a class="btn btn-primary view-measurment" id="view-measurment" data-toggle="modal" data-target="#view-measurment-<?php echo $row['order_id'] ?>">View</a></td>
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?> </td>
                     <td><?php echo htmlspecialchars($row['full_name']) ?> </td>
 	                <td>

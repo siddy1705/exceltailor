@@ -66,7 +66,7 @@ include_once('includes/header.php');
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget ">
-						<div class="row no-padding"><a href="#" class="dashboard-stats" id="due_today"><em class="fa fa-xl fa-clock-o color-teal"></em>
+						<div class="row no-padding"><a href="orders.php?due=today" class="dashboard-stats-disable" id="due_today_disable"><em class="fa fa-xl fa-clock-o color-teal"></em>
 							<div class="large"><?php echo $due_today; ?></div>
 							<div class="text-muted">Delivery Due Today</div></a>
 						</div>

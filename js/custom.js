@@ -54,10 +54,10 @@ $('.dashboard-stats').click(function(e){
 		status = "pending";
 		$('#order-graph-heading').text('Pending Orders');
 	}
-	else if(toggleId == "due_today"){
+	/* else if(toggleId == "due_today"){
 		status = "due_today";
 		$('#order-graph-heading').text('Delivery Due Today');
-	}
+	} */
 	else {
 		$('#order-graph-heading').text('Total Orders');
 	}
@@ -78,7 +78,7 @@ $('.dashboard-stats').click(function(e){
 				obj[element] = (obj[element]||0) + 1;
 			});
             
-            var orderTypes = ["Sherwani", "Kurta Pajama", "3 Piece Suit", "Suit", "Pant", "Shirt", "Jodhpuri", "Pathani Salwar", "Safari", "Jackets", "Others"];
+            var orderTypes = ["Sherwani", "Sherwani - Kurta", "Sherwani - Pajama", "Kurta Pajama", "3 Piece Suit", "Suit", "Pant", "Shirt", "Jodhpuri", "Pathani Salwar", "Safari", "Jackets", "Others"];
 
             var today = new Date();
             var d;

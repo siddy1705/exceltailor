@@ -37,7 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $data_to_update['total_amount'] = (int)$order_data['total_amount'];
     $data_to_update['amount_paid'] = (int)$order_data['amount_paid'];
     $data_to_update['receipt_no'] = $order_data['receipt_no'];
+
+    if($data_to_update['order_status'] == "Delivered")
+    $data_to_update['delivery_date'] = date('Y-m-d', strtotime("now"));
+    else
     $data_to_update['delivery_date'] = date('Y-m-d', strtotime($order_data['delivery_date']));
+    
     $data_to_update['updated_at'] = date('Y-m-d H:i:s');
     
     $db = getDbInstance();

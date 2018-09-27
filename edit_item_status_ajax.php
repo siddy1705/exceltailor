@@ -16,7 +16,7 @@ $update_item_status = $db->update("et_items", array("item_status" => $item_statu
 // Update Order Status
 
 // Get Order ID
-$db->where("item_id", $item_id);
+/* $db->where("item_id", $item_id);
 $order_id = $db->getValue("et_items", "order_id");
 
 $db->where("order_id", $order_id);
@@ -40,7 +40,7 @@ if($pending_count == count($item_array)){
 }
 
 $db->where("order_id", $order_id);
-$db->update("et_orders", array("order_status" => $order_status));
+$db->update("et_orders", array("order_status" => $order_status)); */
 
 ob_end_clean();
 

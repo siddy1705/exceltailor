@@ -14,6 +14,7 @@ $(document).ready(function () {
       },
       success: function(results) {
         console.log(results);
+        launch_toast_item();
       },
       error: function(error) {
         console.log(error);    

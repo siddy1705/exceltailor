@@ -37,7 +37,10 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('o.order_id', 'c.f_name', 'c.l_name', 'c.phone', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid');
+$select = array('o.order_id', 'c.f_name', 'c.l_name', 'c.phone', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid', 'o.admin_delivery_verify');
+
+// default condition
+//$db->where("o.admin_delivery_verify", 0);
 
 //Start building query according to input parameters.
 // If search string
@@ -47,6 +50,8 @@ if ($search_string)
     $db->orwhere('c.l_name', '%' . $search_string . '%', 'like');
     $db->orwhere('c.phone', '%' . $search_string . '%', 'like');
 }
+
+if ($order_status != "Delivered" && !$customer_id) { $db->where("o.admin_delivery_verify", 0);}
 
 if ($order_status && $order_status != "All") { $db->where("o.order_status", $order_status);}
 
@@ -122,6 +127,7 @@ include_once 'includes/header.php';
                 <option value="Pending" <?php echo ($order_status == "Pending")?"Selected":""; ?>>Pending</option>
                 <option value="Processing" <?php echo ($order_status == "Processing")?"Selected":""; ?>>Processing</option>
                 <option value="Completed" <?php echo ($order_status == "Completed")?"Selected":""; ?>>Completed</option>
+                <option value="Delivered" <?php echo ($order_status == "Delivered")?"Selected":""; ?>>Delivered</option>
                 <option value="Cancelled" <?php echo ($order_status == "Cancelled")?"Selected":""; ?>>Cancelled</option>
             </select>
             <label for ="input_order">Delivery Date</label>
@@ -138,14 +144,10 @@ include_once 'includes/header.php';
     <table class="table table-striped table-bordered table-condensed">
         <thead>
             <tr>
-                <!-- <th class="header">#</th> -->
                 <th>Customer Name</th>
-                <!-- <th>Order Type</th>
-                <th>Order Title </th> -->
                 <th>Delivery Date </th>
-                <!-- <th>Assigned To </th> -->
                 <th>Order Status </th>
-                <th>Pending Amount</th>
+                <?php if($_SESSION['user_type']=='administrator'){ echo '<th>Pending Amount</th>'; } ?>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -155,18 +157,23 @@ include_once 'includes/header.php';
                 ?>
                 <tr>
 	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
-	                <!-- <td><?php //echo htmlspecialchars($row['order_type']) ?></td>
-	                <td><?php //echo htmlspecialchars($row['order_title']) ?> </td> -->
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
-	                <!-- <td><?php //echo htmlspecialchars($row['full_name']) ?> </td> -->
                     <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
-                    <td id="pending-amount"><?php echo $pending_amount; ?> </td>
+                    <?php if($_SESSION['user_type']=='administrator'){ ?><td id="pending-amount"><?php echo $pending_amount; ?> </td><?php } ?>
 	                <td>
                     <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success order-actions"><span class="glyphicon glyphicon-eye-open"></span></a>
                     
                     <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary order-actions"><span class="glyphicon glyphicon-edit"></span></a>
 
                     <a class="btn btn-info send-sms order-actions" <?php if($row['order_status'] != "Completed") { echo 'style="display:none"'; } ?> id="<?php echo $row['phone']; ?>"><span class="glyphicon glyphicon-envelope"></span></a>
+
+                    <?php if($row['order_status'] == "Delivered" && $row['admin_delivery_verify'] == 0){ ?>
+                    <a href="delivery_confirm.php?order_id=<?php echo $row['order_id']; ?>&action=confirm" class="btn btn-info verify-delivery order-actions" id="verify_delivery"><span class="glyphicon glyphicon glyphicon-ok"></span></a>
+                    <?php } ?>
+
+                    <?php if($row['order_status'] == "Delivered" && $row['admin_delivery_verify'] == 1){ ?>
+                    <a href="delivery_confirm.php?order_id=<?php echo $row['order_id']; ?>&action=unconfirm" class="btn btn-info verify-delivery order-actions" id="verify_delivery"><span class="glyphicon glyphicon glyphicon-remove"></span></a>
+                    <?php } ?>
 
                     <a href=""  class="btn btn-danger delete_btn order-actions" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>
