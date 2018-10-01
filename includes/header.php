@@ -52,6 +52,9 @@
             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
             <li <?php echo (CURRENT_PAGE =="employees.php") ? 'class="active"' : '' ; ?>><a href="employees.php"><em class="fa fa-user-circle-o">&nbsp;</em> Employees</a></li>
             <?php endif; ?>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'administrator' ) : ?>
+            <li <?php echo (CURRENT_PAGE =="reports.php") ? 'class="active"' : '' ; ?>><a href="reports.php"><em class="fa fa-file">&nbsp;</em> Reports</a></li>
+            <?php endif; ?>
             <li><a href="logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
         </ul>
     </div><!--/.sidebar-->

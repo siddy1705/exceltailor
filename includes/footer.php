@@ -32,19 +32,16 @@
 	<?php 
     if(CURRENT_PAGE == 'dashboard.php')
 		echo '<script src="js/chart-data.js"></script>';
-	?>
-
-	<?php 
+	
     if(CURRENT_PAGE == 'orders.php')
 		echo '<script src="js/orders.js"></script>';
-	?>
-
-	<?php 
+	
     if(CURRENT_PAGE == 'items.php')
 		echo '<script src="js/custom-item.js"></script>';
-	?>
-  	
-	<?php 
+
+	if(CURRENT_PAGE == 'reports.php')
+		echo '<script src="js/reports.js"></script>';
+	
     if(CURRENT_PAGE == 'add_order.php')
         echo '<script src="js/order_form.js"></script>';
     elseif(strpos(CURRENT_PAGE, 'edit_order.php') !== FALSE)

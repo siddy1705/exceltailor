@@ -56,12 +56,23 @@ include_once 'includes/header.php';
 								<label>
 									<input name="remember" type="checkbox" value="Remember Me">Remember Me
 								</label>
+
+								<label style="float:right;">
+									<a name="forgot-password" href="forgot_password.php" value="">Forgot Password</a>
+								</label>
 							</div>
 							<?php
 							if(isset($_SESSION['login_failure'])){ ?>
 							<div class="alert alert-danger alert-dismissable fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 								<?php echo $_SESSION['login_failure']; unset($_SESSION['login_failure']);?>
+							</div>
+							<?php } ?>
+							<?php
+							if(isset($_SESSION['password_update'])){ ?>
+							<div class="alert alert-success alert-dismissable fade in">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<?php echo $_SESSION['password_update']; unset($_SESSION['password_update']);?>
 							</div>
 							<?php } ?>
 							<!-- <a href="index.html" class="btn btn-primary">Login</a> -->
