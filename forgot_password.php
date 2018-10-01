@@ -24,13 +24,11 @@ if(isset($email)) {
     $data_to_store["user_id"] = $user_id;
     $data_to_store["token"] = $token;
     $data_to_store["timestamp"] = $time;
-    $last_id = $db->insert ('et_reset_password', $data_to_store);
-    echo $last_id;
-    
+    $last_id = $db->insert ('et_reset_password', $data_to_store);    
 
 		$url = "http://$_SERVER[HTTP_HOST]/reset_password.php?user_id=$user_id&token=$token&time=$time";
 		//$url = "http://localhost/exceltailor/reset_password.php?user_id=$user_id&token=$token&time=$time";
-		$_SESSION['login_failure'] = $url;
+		$_SESSION['email_sent'] = "Please check your email for the reset link.";
 
 		$msg = "Please click the following URL to reset your password.\n\n $url";
 		mail($email,"Password Reset - Excel Tailor",$msg);
@@ -61,6 +59,13 @@ include_once 'includes/header.php';
 							<div class="alert alert-danger alert-dismissable fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 								<?php echo $_SESSION['login_failure']; unset($_SESSION['login_failure']);?>
+							</div>
+							<?php } ?>
+							<?php
+							if(isset($_SESSION['email_sent'])){ ?>
+							<div class="alert alert-success alert-dismissable fade in">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<?php echo $_SESSION['email_sent']; unset($_SESSION['email_sent']);?>
 							</div>
 							<?php } ?>
 							<!-- <a href="index.html" class="btn btn-primary">Login</a> -->

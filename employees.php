@@ -31,7 +31,7 @@ if ($order_by == "") {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('id', 'full_name', 'user_name', 'type');
+$select = array('id', 'full_name', 'user_name', 'type', 'email');
 
 // If user searches 
 if ($search_string) {
@@ -99,6 +99,7 @@ include_once 'includes/header.php';
                 <th class="header">Name</th>
                 <th>User Name</th>
                 <th>User Type</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -110,7 +111,7 @@ include_once 'includes/header.php';
                 <td><?php echo $row['full_name'] ?></td>
                 <td><?php echo htmlspecialchars($row['user_name']) ?></td>
                 <td><?php echo htmlspecialchars($row['type']) ?></td>
-
+                <td><?php echo htmlspecialchars($row['email']) ?></td>
                 <td>
                     <a href="items.php?employee_id=<?php echo $row['id'] ?>" class="btn btn-success employee-actions" ><span class="glyphicon glyphicon-eye-open"></span></a>
 

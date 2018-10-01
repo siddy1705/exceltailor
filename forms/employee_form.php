@@ -30,6 +30,16 @@
             </div>
         </div>
     </div>
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" >Email</label>
+        <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input type="email" name="email" placeholder="Email " class="form-control" required="" autocomplete="off">
+            </div>
+        </div>
+    </div>
     <!-- radio checks -->
     <div class="form-group">
         <label class="col-md-4 control-label">User type</label>

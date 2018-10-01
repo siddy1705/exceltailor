@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $last_id = $db->insert ('et_users', $data_to_store);
     if($last_id)
     {
-    	$_SESSION['success'] = "Admin user added successfully!";
+    	$_SESSION['success'] = "User added successfully!";
     	header('location: employees.php');
     	exit();
     }  
