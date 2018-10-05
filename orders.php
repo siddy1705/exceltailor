@@ -167,13 +167,13 @@ include_once 'includes/header.php';
 
                     <a class="btn btn-info send-sms order-actions" <?php if($row['order_status'] != "Completed") { echo 'style="display:none"'; } ?> id="<?php echo $row['phone']; ?>"><span class="glyphicon glyphicon-envelope"></span></a>
 
-                    <?php if($row['order_status'] == "Delivered" && $row['admin_delivery_verify'] == 0){ ?>
+                    <?php if($_SESSION['user_type']=='administrator'){ if($row['order_status'] == "Delivered" && $row['admin_delivery_verify'] == 0){ ?>
                     <a href="delivery_confirm.php?order_id=<?php echo $row['order_id']; ?>&action=confirm" class="btn btn-info verify-delivery order-actions" id="verify_delivery"><span class="glyphicon glyphicon glyphicon-ok"></span></a>
-                    <?php } ?>
+                    <?php } } ?>
 
-                    <?php if($row['order_status'] == "Delivered" && $row['admin_delivery_verify'] == 1){ ?>
+                    <?php if($_SESSION['user_type']=='administrator'){ if($row['order_status'] == "Delivered" && $row['admin_delivery_verify'] == 1){ ?>
                     <a href="delivery_confirm.php?order_id=<?php echo $row['order_id']; ?>&action=unconfirm" class="btn btn-info verify-delivery order-actions" id="verify_delivery"><span class="glyphicon glyphicon glyphicon-remove"></span></a>
-                    <?php } ?>
+                    <?php } } ?>
 
                     <a href=""  class="btn btn-danger delete_btn order-actions" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id'] ?>"><span class="glyphicon glyphicon-trash"></span></a>
                   </td>

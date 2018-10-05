@@ -30,22 +30,22 @@
 	</script>
 
 	<?php 
-    if(CURRENT_PAGE == 'dashboard.php')
+    if(strpos(CURRENT_PAGE, 'dashboard.php') !== FALSE)
 		echo '<script src="js/chart-data.js"></script>';
 	
-    if(CURRENT_PAGE == 'orders.php')
+    if(strpos(CURRENT_PAGE, 'orders.php') !== FALSE)
 		echo '<script src="js/orders.js"></script>';
 	
-    if(CURRENT_PAGE == 'items.php')
+    if(strpos(CURRENT_PAGE, 'items.php') !== FALSE)
 		echo '<script src="js/custom-item.js"></script>';
 
-	if(CURRENT_PAGE == 'reports.php')
+		if(strpos(CURRENT_PAGE, 'reports.php') !== FALSE)
 		echo '<script src="js/reports.js"></script>';
 	
-    if(CURRENT_PAGE == 'add_order.php')
-        echo '<script src="js/order_form.js"></script>';
+    if(strpos(CURRENT_PAGE, 'add_order.php') !== FALSE)
+      echo '<script src="js/order_form.js"></script>';
     elseif(strpos(CURRENT_PAGE, 'edit_order.php') !== FALSE)
-        echo '<script src="js/order_form_edit.js"></script>';
+      echo '<script src="js/order_form_edit.js"></script>';
     ?>
 	
 		

@@ -58,6 +58,9 @@ if($from_date && $to_date) {
     $db->where("o.delivery_date", $to_date, "<=");
 }
 
+// Get only delivered orders
+$db->where("o.order_status", 'Delivered');
+
 //Set pagination limit
 $db->pageLimit = $pagelimit;
 
