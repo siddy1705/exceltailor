@@ -25,6 +25,8 @@ $db = getDbInstance();
 $select = array('o.order_id', 'c.f_name', 'c.l_name', 'o.delivery_date', 'i.created_at', 'i.item_status', 'i.item_id', 'i.item_type', 'i.item_title', 'u.full_name', 'm.measurment_id', 'm.measurment_name', 'm.ub_length', 'm.ub_chest', 'm.ub_stomach', 'm.ub_hip', 'm.ub_shoulders', 'm.ub_sleeves', 'm.ub_sleeve_round', 'm.ub_neck', 'm.ub_comments', 'm.lb_length', 'm.lb_waist', 'm.lb_hip', 'm.lb_thigh', 'm.lb_knee', 'm.lb_bottom', 'm.lb_inside', 'm.lb_comments');
 
 //Start building query according to input parameters.
+
+
 // If search string
 if ($search_string) 
 {
@@ -33,7 +35,7 @@ if ($search_string)
 }
 
 //If order by option selected
-if ($item_type && $item_type != "All") { $db->where("i.item_type", $item_type);}
+if ($item_type && $item_type != "All") { $db->having("i.item_type", $item_type);}
 
 if($order_id) { $db->where("i.order_id", $order_id);}
 
@@ -55,9 +57,6 @@ $db->join("et_new_measurments m", "o.measurment_id=m.measurment_id", "LEFT");
 
 $items = $db->arraybuilder()->paginate("et_items i", $page, $select);
 $total_pages = $db->totalPages;
-
-//var_dump($items); die;
-//print_r ($orders); die;
 
 // get columns for order filter
 foreach ($items as $value) {

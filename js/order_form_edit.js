@@ -248,7 +248,7 @@ $(document).ready(function () {
   
 
   $('#save-item').click(function(){
-    console.log("clicked");
+    console.log($("#assigned-to option:selected").text());
     var tempItemArr = [];
 
     tempItemArr.push($('#order-type').val());
@@ -265,7 +265,7 @@ $(document).ready(function () {
     $('#item-list').append('<tr id="' + deleteMarker + '">'
     + '<td>' + $('#order-type').val() + '</td>'
     + '<td>' + $('#item-quantity').val() + '</td>'
-    + '<td>' + $('#assigned-to').val() + '</td>'
+    + '<td>' + $('#assigned-to option:selected').text() + '</td>'
     + '<td>' + $('#item-title').val() + '</td>'
     + '<td>' + $('#item-rate').val() * $('#item-quantity').val() + '</td>'
     + '<td><button class="btn btn-danger delete-item" type="button" id="' + deleteMarker + '"><span class="glyphicon glyphicon-remove"></span></button></td>'

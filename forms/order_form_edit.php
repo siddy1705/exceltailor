@@ -168,11 +168,14 @@
                         </tr>
                     </thead>
                     <tbody id="item-list">
-                      <?php foreach($items as $item) { ?>
+                      <?php foreach($items as $item) { 
+                        $db->where('id', $item['assigned_to']);
+                        $emp = $db->getone("et_users");  
+                        ?>
                         <tr id="<?php echo $item['item_id']; ?>">
                             <td><?php echo $item['item_type']; ?></td>
                             <td><?php echo $item['item_quantity']; ?></td>
-                            <td><?php echo $item['assigned_to']; ?></td>
+                            <td><?php echo $emp['full_name']; ?></td>
                             <td><?php echo $item['item_title']; ?></td>
                             <td><?php echo $item['item_amount']; ?></td>
                             <td><button class="btn btn-danger delete-item-db" type="button" id="<?php echo $item['item_id']; ?>" amount="<?php echo $item['item_amount']; ?>"><span class="glyphicon glyphicon-remove"></span></button></td>

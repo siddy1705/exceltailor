@@ -144,6 +144,7 @@ include_once 'includes/header.php';
     <table class="table table-striped table-bordered table-condensed">
         <thead>
             <tr>
+                <th>Order Date</th>
                 <th>Customer Name</th>
                 <th>Delivery Date </th>
                 <th>Order Status </th>
@@ -156,7 +157,10 @@ include_once 'includes/header.php';
                 $pending_amount = $row['total_amount'] - $row['amount_paid'];
                 ?>
                 <tr>
-	                <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
+                    <?php $d = new DateTime($row['created_at']);
+                          $created_at = $d->format('Y-m-d');?>
+                    <td><?php echo htmlspecialchars($created_at) ?></td>
+                    <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
                     <td><?php echo htmlspecialchars($row['order_status']) ?> </td>
                     <?php if($_SESSION['user_type']=='administrator'){ ?><td id="pending-amount"><?php echo $pending_amount; ?> </td><?php } ?>
@@ -164,6 +168,8 @@ include_once 'includes/header.php';
                     <a href="items.php?order_id=<?php echo $row['order_id'] ?>" class="btn btn-success order-actions"><span class="glyphicon glyphicon-eye-open"></span></a>
                     
                     <a href="edit_order.php?order_id=<?php echo $row['order_id'] ?>&operation=edit" class="btn btn-primary order-actions"><span class="glyphicon glyphicon-edit"></span></a>
+
+                    <a href="order_status_update.php?order_id=<?php echo $row['order_id']; ?>" class="btn btn-info order-actions" <?php if($row['order_status'] != "Pending" && $row['order_status'] != "Processing") { echo 'style="display:none"'; } ?>><span class="glyphicon glyphicon-thumbs-up"></span></a>
 
                     <a class="btn btn-info send-sms order-actions" <?php if($row['order_status'] != "Completed") { echo 'style="display:none"'; } ?> id="<?php echo $row['phone']; ?>"><span class="glyphicon glyphicon-envelope"></span></a>
 
