@@ -56,6 +56,8 @@ $users = $db->get('et_users');
     <?php  include_once './forms/order_form.php'; ?>
     </form>
 
+<!-- Edit Measurment Modals -->
+<div id="edit-measurment-modals"></div>
 
 <!-- Add Measurment Modal -->
 <div class="modal fade" id="add_measurment" role="dialog">

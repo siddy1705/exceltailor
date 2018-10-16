@@ -53,7 +53,7 @@
 
                             echo '<tr class="measurment-info-'. $measurment['measurment_id'] .'">'
                             . '<td><input type="radio" name="measurment_id" value="'. $measurment['measurment_id'] .'"'.$checked.'></td>'
-                            . '<td>'. $measurment['measurment_name'] .'</td>'
+                            . '<td><a href="" data-toggle="modal" data-target="#edit-measurment-'.$measurment['measurment_id'].'">'. $measurment['measurment_name'] .'</a></td>'
                             . '<td colspan="8">'
                             . '<table style="width: 100%;" class="table table-striped table-bordered table-condensed"><thead>'
                             . '<tr><th colspan="8">Upper Body</th></tr>'
