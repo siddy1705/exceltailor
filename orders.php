@@ -37,7 +37,7 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('o.order_id', 'c.f_name', 'c.l_name', 'c.phone', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid', 'o.admin_delivery_verify');
+$select = array('o.order_id', 'c.f_name', 'c.l_name', 'c.phone', 'o.delivery_date', 'o.created_at', 'o.order_status', 'o.total_amount', 'o.amount_paid', 'o.admin_delivery_verify', 'o.receipt_no');
 
 // default condition
 //$db->where("o.admin_delivery_verify", 0);
@@ -144,6 +144,7 @@ include_once 'includes/header.php';
     <table class="table table-striped table-bordered table-condensed">
         <thead>
             <tr>
+                <th>Receipt No</th>
                 <th>Order Date</th>
                 <th>Customer Name</th>
                 <th>Delivery Date </th>
@@ -158,7 +159,9 @@ include_once 'includes/header.php';
                 ?>
                 <tr>
                     <?php $d = new DateTime($row['created_at']);
-                          $created_at = $d->format('Y-m-d');?>
+                        $created_at = $d->format('Y-m-d');     
+                    ?>
+                    <td><?php echo htmlspecialchars($row['receipt_no']) ?></td>
                     <td><?php echo htmlspecialchars($created_at) ?></td>
                     <td><?php echo htmlspecialchars($row['f_name']." ".$row['l_name']); ?></td>
                     <td><?php echo htmlspecialchars($row['delivery_date']) ?></td>
